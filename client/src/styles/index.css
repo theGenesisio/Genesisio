@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base
+{
+  @font-face
+  {
+    font-family: "Overpass";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    src: url("https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100..900;1,100..900&display=swap") format("ttf");
+    /* src: url(./src/assets/fonts/Overpass/Overpass-VariableFont_wght.ttf) format("ttf"); */
+  }
+
+  body
+  {
+    @apply m-0 sm:px-5 md:px-10 lg:px-40 bg-primary-blue
+  }
+
+  input[type="checkbox"]
+  {
+    @apply h-3 w-3 cursor-pointer accent-accent-green;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="date"],
+  textarea
+  {
+    @apply cursor-text rounded-md border border-secondary-blue bg-input px-10 py-2 text-base font-medium text-white caret-accent-green shadow-sm invalid:border-accent-red invalid:text-accent-red focus:border-accent-green focus:outline-none focus:ring-1 focus:ring-accent-green focus:invalid:border-accent-red focus:invalid:ring-accent-red disabled:shadow-none placeholder-gray-400 disabled:border-gray-600 disabled:bg-gray-600;
+  }
+
+  .link
+  {
+    @apply cursor-default font-semiTopic text-accent-green decoration-2 hover:underline;
+  }
+
+  .link:visited
+  {
+    @apply underline decoration-2 text-green-400;
+  }
+
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  a
+  {
+    @apply antialiased
+  }
+
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button
+  {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* width */
+  ::-webkit-scrollbar
+  {
+    width: 3px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track
+  {
+    @apply bg-transparent rounded-none
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb
+  {
+    @apply bg-secondary-blue rounded-none
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover
+  {
+      @apply bg-accent-green
+  }
+}
+
+@layer components
+{
+  .vessel
+  {
+    @apply rounded-2xl border border-secondary-blue p-5 shadow-md shadow-secondary-blue;
+  }
+
+  /* 
+  .cta-primary
+  {
+    @apply w-4/5 rounded-lg bg-accent-green px-5 py-3 text-xl font-cta uppercase text-white shadow-md shadow-accent-green;
+  }
+
+  .cta-sm-primary
+  {
+    @apply w-3/4 rounded-lg bg-accent-green px-5 py-1 text-lg font-cta capitalize text-white shadow-md shadow-accent-green;
+  } */
+  /* 
+  .cta-secondary
+  {
+    @apply w-4/5 rounded-lg bg-transparent px-5 py-3 text-base font-cta uppercase text-white;
+  } */
+}
