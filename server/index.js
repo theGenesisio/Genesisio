@@ -34,7 +34,7 @@ app.use(json())
 app.use(urlencoded({ extended: true }))
 //todo update to domain
 app.use(cors({
-    origin: ['http://localhost:5173', 'https://genesisio.xyz', 'https://www.genesisio.xyz'],
+    origin: ['http://localhost:5173', 'https://genesisio.xyz','https://www.genesisio.xyz/', 'https://genesisio-client.vercel.app/', 'https://genesisio-client-thegenesis-projects.vercel.app/','https://genesisio-client-git-main-thegenesis-projects.vercel.app/'],
     methods: ["POST", "GET", "PATCH"],
     credentials: true
 }));

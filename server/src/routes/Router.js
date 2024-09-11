@@ -9,10 +9,10 @@ const __dirname = path.dirname(__filename);
 const Router = _Router();
 // **  Routes
 Router.route("/")
-    .get(isAuthenticated, (req, res) => {
-        res.status(403).send({ message: 'You have accessed a protected route!', statusCode: 403 });
+    .get((req, res) => {
+        res.status(403).send({ message: 'API working like a charm', statusCode: 403 });
     })
-    .post((req, res, next) => {
+    .post(isAuthenticated, (req, res, next) => {
         res.status(403).send({ message: 'You have accessed a protected route!', statusCode: 403 });
 
     })
