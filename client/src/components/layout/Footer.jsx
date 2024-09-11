@@ -26,7 +26,7 @@ const Footer = () => {
           <div className="flex flex-wrap justify-center mt-6 -mx-4">
             {Lorem.navLinks.map((link) => (
               <Link
-              key={link}
+                key={link}
                 to={link === "Home" ? "/" : `/#${link}`}
                 className="mx-4 text-sm text-accent-green transition-colors duration-300 hover:text-white"
               >
@@ -76,20 +76,20 @@ const Footer = () => {
             </Link>
           </div>
           <div className="flex m-2">
-            <Link
-              href="#"
+            <a
+              href="https://www.instagram.com/"
               className="mx-2 text-accent-green transition-colors duration-300 hover:text-white"
               aria-label="Instagram"
             >
               {instagramIcon}
-            </Link>
-            <Link
-              href="#"
+            </a>
+            <a
+              href="https://www.facebook.com/"
               className="mx-2 text-accent-green transition-colors duration-300 hover:text-white"
               aria-label="facebook"
             >
               {facebookIcon}
-            </Link>
+            </a>
           </div>
         </div>
         <div className="flex flex-col items-center sm:flex-row sm:justify-center">

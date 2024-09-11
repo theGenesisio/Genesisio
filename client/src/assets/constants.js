@@ -6,7 +6,7 @@ const Lorem = {
     navLink2: ["Dashboard", "Deposit", "Withdrawals", "Records", "Markets", "My Assets"],
     adminNavLinks: ["Dashboard", "Deposits", "Withdrawals", "Upgrade", "Packages", "Networks", "Profiles"],
     footerLink2: {
-        address: "Some address",
+        address: "Tektum Architecture Office Building, Bucharest, Romania",
         mail: "support@genesisio.com",
         mailTo: "genesisioinfo@gmail.com"
     },

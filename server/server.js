@@ -10,31 +10,39 @@ import "./src/mongodb/LivePrices.js"
 const { connect, connection } = mongoose;
 // ** Connect to database and log each level
 const [uri, dbName, collectionName] = ["localhost" || "127.0.0.1" || "0.0.0.0", "genesisio", "mySessions"]
-connection.on('connected', () => console.log(`${dbName.toUpperCase()} connected`));
-connection.on('open', () => console.log(`${dbName.toUpperCase()} connection open`));
-connection.on('disconnected', () => console.log(`${dbName.toUpperCase()} disconnected`));
-connection.on('reconnected', () => console.log(`${dbName.toUpperCase()} reconnected`));
-connection.on('disconnecting', () => console.log(`${dbName.toUpperCase()} disconnecting`));
-connection.on('close', () => console.log(`${dbName.toUpperCase()} connection closed`));
-connect(`mongodb://${uri}/${dbName}`, {
+// for local db connection
+// connection.on('connected', () => console.log(`${dbName.toUpperCase()} connected`));
+// connection.on('open', () => console.log(`${dbName.toUpperCase()} connection open`));
+// connection.on('disconnected', () => console.log(`${dbName.toUpperCase()} disconnected`));
+// connection.on('reconnected', () => console.log(`${dbName.toUpperCase()} reconnected`));
+// connection.on('disconnecting', () => console.log(`${dbName.toUpperCase()} disconnecting`));
+// connection.on('close', () => console.log(`${dbName.toUpperCase()} connection closed`));
+// connect(`mongodb://${uri}/${dbName}`, {
+//     serverSelectionTimeoutMS: 60000
+// })
+//     .then(() => console.log(`${dbName.toUpperCase()} connected successfully at ${uri}`))
+//     .catch(err => console.log(`ERROR In Connection to ${dbName} \n ${err}`));
+connect(process.env.MONGO_URI, {
     serverSelectionTimeoutMS: 60000
 })
-    .then(() => console.log(`${dbName.toUpperCase()} connected successfully at ${uri}`))
-    .catch(err => console.log(`ERROR In Connection to ${dbName} \n ${err}`));
+    .then(() => console.log('Connected to MongoDB Atlas successfully'))
+    .catch(err => console.log(`ERROR In Connection: \n ${err}`));
+
 const [app, port] = [express(), process.env.PORT || 3000]
 // ** Enable reading of body object from requests
 app.use(json())
 app.use(urlencoded({ extended: true }))
 //todo update to domain
 app.use(cors({
-    origin: ['http://localhost:5173'],
+    origin: ['http://localhost:5173', 'https://genesisio.xyz', 'https://www.genesisio.xyz'],
     methods: ["POST", "GET", "PATCH"],
     credentials: true
 }));
 // ** Enable session storage
 const store = new MongoDBStore(session);
 var sessionStorage = new store({
-    uri: `mongodb://${uri}/${dbName}`,
+    uri: process.env.MONGO_URI,
+    // uri: `mongodb://${uri}/${dbName}`,
     collection: collectionName,
     connectionOptions: {
         serverSelectionTimeoutMS: 60000

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import FormError from "../subcomponents/FormError";
 import UpgradeCard from "../subcomponents/UpgradeCard";
 const Upgrade = () => {
   const [tiers, setTiers] = useState(null);

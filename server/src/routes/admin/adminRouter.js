@@ -261,6 +261,7 @@ Router.route("/tiers/requests/mail/:email-:userId")
         const { number, _id } = req.body
         const [requestedTierArray, user] = await Promise.all([findAnyByUser({ number: number }, 7), findAnyByID(userId)]);
         const { instruction } = requestedTierArray[0]
+        console.log(requestedTierArray,instruction);
         let mail = await upgradeEmail(user.fullname, email, instruction)
         mail && await adminUpdateRecords(_id, { status: "mailed" }, 8)
         if (!mail) {

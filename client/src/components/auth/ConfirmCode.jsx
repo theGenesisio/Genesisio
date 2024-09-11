@@ -176,16 +176,7 @@ const ConfirmCode = () => {
             >
               {isSubmitting ? "Reseting..." : "Reset Password"}
             </button>
-            <div className="mt-6 text-center flex flex-row justify-between">
-              {!isSubmitting && show && (
-                <Link
-                // change
-                  to="/api/auth/code"
-                  className="text-sm font-medium text-accent-green hover:underline"
-                >
-                  Request new code
-                </Link>
-              )}
+            <div className="mt-6 text-center flex justify-center">
               <Link
                 to="/auth/sign-in"
                 className="text-sm text-accent-green hover:underline"

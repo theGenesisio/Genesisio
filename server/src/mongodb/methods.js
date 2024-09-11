@@ -4,7 +4,6 @@ import { hashSync } from "bcrypt"
 import { Profile, Admin, Deposit, Withdrawal, Package, Network, Price, Tier, UpgradeRequest } from "./models.js"
 import { isoToLocaleDateString } from "../routes/auth/middleware.js"
 import defaultTiers from "./Tier.js";
-import mongoose from "mongoose";
 const models = [Profile, Admin, Deposit, Withdrawal, Package, Network, Price, Tier, UpgradeRequest];
 //FIND METHODS
 const findAnyByID = async (_id, modelIndex = 0) => {
