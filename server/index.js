@@ -74,4 +74,18 @@ app.use("/api/auth", authRouter)
 app.use("/api", router)
 app.use("/api/admin/auth", adminAuthRouter)
 app.use("/api/admin", Router)
+app.get("/",(req,res)=>{
+    res.json([
+        {
+            "joke": "Why don't crypto traders ever get lost? Because they always follow the blockchain!"
+        },
+        {
+            "joke": "Why did the Bitcoin break up with the dollar? It found someone more stable."
+        },
+        {
+            "joke": "Why was the computer cold? It left its Windows open and started mining Bitcoin!"
+        }
+    ]
+)
+})
 app.listen(port, () => console.log(`Server running at http://localhost:${port}/`))
