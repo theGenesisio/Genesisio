@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 dotenv.config()
 import express, { json, urlencoded } from "express"
 import cors from "cors"
+import { handlePreflight } from "./src/routes/auth/middleware.js";
 import mongoose from 'mongoose';
 import session from 'express-session';
 import MongoDBStore from 'connect-mongodb-session';
@@ -32,10 +33,9 @@ const [app, port] = [express(), process.env.PORT || 3000]
 // ** Enable reading of body object from requests
 app.use(json())
 app.use(urlencoded({ extended: true }))
-//todo update to domain
 app.use(cors({
-    origin: ['http://localhost:5173', 'https://genesisio.xyz','https://www.genesisio.xyz/', 'https://genesisio-client.vercel.app/', 'https://genesisio-client-thegenesis-projects.vercel.app/','https://genesisio-client-git-main-thegenesis-projects.vercel.app/'],
-    methods: ["POST", "GET", "PATCH"],
+    origin: ['https://genesisio.xyz', 'https://www.genesisio.xyz', 'https://genesisio-client.vercel.app', 'https://genesisio-client-thegenesis-projects.vercel.app', 'https://genesisio-client-git-main-thegenesis-projects.vercel.app'],
+    methods: ["POST", "GET", "PATCH","DELETE","PUT"],
     credentials: true
 }));
 // ** Enable session storage
@@ -70,11 +70,12 @@ import authRouter from "./src/routes/auth/authRouter.js"
 import router from "./src/routes/Router.js";
 import adminAuthRouter from "./src/routes/admin/authRouter.js";
 import { Router } from "./src/routes/admin/adminRouter.js";
+app.use(handlePreflight);
 app.use("/api/auth", authRouter)
 app.use("/api", router)
 app.use("/api/admin/auth", adminAuthRouter)
 app.use("/api/admin", Router)
-app.get("/",(req,res)=>{
+app.get("/", (req, res) => {
     res.json([
         {
             "joke": "Why don't crypto traders ever get lost? Because they always follow the blockchain!"
@@ -86,6 +87,6 @@ app.get("/",(req,res)=>{
             "joke": "Why was the computer cold? It left its Windows open and started mining Bitcoin!"
         }
     ]
-)
+    )
 })
 app.listen(port, () => console.log(`Server running at http://localhost:${port}/`))

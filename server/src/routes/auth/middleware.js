@@ -8,6 +8,14 @@ const __dirname = path.dirname(__filename);
 import nodemailer from "nodemailer"
 import { findAnyByUser } from "../../mongodb/methods.js";
 import { generateEmailHtml, generateOnboardingEmailHtml, generateUpgradeEmail, resetPasswordHTML } from "./mailing.js";
+const handlePreflight = (req, res, next) => {
+    if (req.method === 'OPTIONS') {
+        res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+        res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+        return res.status(200).json({});
+    }
+    next();
+};
 const setRoutePath = () => (req, res, next) => {
     req.routePath = req.params
     next();
@@ -227,4 +235,4 @@ const requestOTPForReset = async (req, res, next) => {
         }
     }
 }
-export { isAuthenticated, isoToLocaleDateString, passwordMatch, generateEmailHtml, completeRegistration, verifyOTP, otpStore, onBoardingEmail, setRoutePath, upgradeEmail, requestOTPForReset }
+export { isAuthenticated, isoToLocaleDateString, passwordMatch, generateEmailHtml, completeRegistration, verifyOTP, otpStore, onBoardingEmail, setRoutePath, upgradeEmail, requestOTPForReset, handlePreflight }
