@@ -78,7 +78,7 @@ const Herosection = () => {
     return (
       <Link
         to="/auth/sign-in"
-        className="sm:flex sm:justify-center lg:justify-start"
+        className="flex justify-center lg:justify-start"
       >
         <Button size="lg" className={`${className} xs:w-full`}>
           Get started
