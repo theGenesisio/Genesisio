@@ -9,16 +9,15 @@ const About = () => {
       <h1 className="text-accent-green text-topic font-normal mb-10 capitalize about">
         About Us
       </h1>
-      <Typography variant="lead" className="text-white about">
+      <Typography variant="paragraph" className="text-white about">
         At Genesisio, we're dedicated to revolutionizing the way you trade
         Assets,within the bounds of legality and regulatory compliance.
       </Typography>
-      <Typography variant="paragraph" className="text-white about">
-        Our platform is designed to empower individuals like you to harness the
-        potential of digital assets, particularly Bitcoin and other major
-        cryptocurrencies along side exploring the stocks market,focus committed
-        to making the world of crypto accessible to everyone.
-      </Typography>
+      <Typography variant="paragraph" className="text-white about"></Typography>
+      Our platform is designed to empower individuals like you to harness the
+      potential of digital assets, particularly Bitcoin and other major
+      cryptocurrencies along side exploring the stocks market,focus committed to
+      making the world of crypto accessible to everyone.
       <Typography variant="paragraph" className="text-white about">
         We prioritize the privacy and security of our users, we do not require
         unnecessary personal information, providing you with the freedom and
