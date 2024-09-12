@@ -37,7 +37,7 @@ const Footer = () => {
         </div>
         <hr className="my-6 border-secondary-blue md:my-10" />
         <div className="flex flex-col items-center sm:flex-row sm:justify-between">
-          <div className="flex m-2">
+          <div className="flex m-2 sm:flex-col gap-2">
             <Link
               href="#"
               className="mx-2 text-accent-green transition-colors duration-300 hover:text-white flex-row flex gap-1 text-center"

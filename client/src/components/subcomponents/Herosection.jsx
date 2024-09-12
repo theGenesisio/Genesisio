@@ -76,8 +76,11 @@ const Herosection = () => {
   });
   function ctaBTN(className) {
     return (
-      <Link to="/auth/sign-in">
-        <Button fullWidth size="lg" className={className}>
+      <Link to="/auth/sign-in" className="w-full flex justify-center sm:px-5 lg:px-0">
+        <Button
+          size="lg"
+          className={`${className} w-full`}
+        >
           Get started
         </Button>
       </Link>
