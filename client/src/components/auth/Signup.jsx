@@ -105,7 +105,7 @@ const Signup = () => {
               type="text"
               className="block w-full"
               placeholder="fullname"
-              name="fullname"
+              name="full name"
             />
           </div>
           {errors.fullname && <FormError err={errors.fullname.message} />}
