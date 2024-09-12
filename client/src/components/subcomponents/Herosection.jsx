@@ -76,11 +76,11 @@ const Herosection = () => {
   });
   function ctaBTN(className) {
     return (
-      <Link to="/auth/sign-in" className="w-full flex justify-center sm:px-5 lg:px-0">
-        <Button
-          size="lg"
-          className={`${className} w-full`}
-        >
+      <Link
+        to="/auth/sign-in"
+        className="sm:flex sm:justify-center lg:justify-start"
+      >
+        <Button size="lg" className={`${className} xs:w-full`}>
           Get started
         </Button>
       </Link>
@@ -88,7 +88,7 @@ const Herosection = () => {
   }
   return (
     <section className="bg-inherit">
-      <div className="flex flex-col py-10 mx-auto space-y-6 lg:h-[54rem] lg:py-16 lg:flex-row lg:items-center">
+      <div className="flex flex-col py-10 mx-auto space-y-6 lg:h-[54rem] lg:py-16 lg:flex-row lg:items-center sm:mx-2">
         <div className="w-full lg:w-1/2">
           <div className="lg:max-w-lg">
             <h1 className="text-3xl font-semibold tracking-wide text-white lg:text-4xl hero">
