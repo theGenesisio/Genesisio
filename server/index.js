@@ -22,7 +22,7 @@ app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use(cors({
     origin: ['https://genesisio.xyz', 'https://www.genesisio.xyz', 'https://genesisio-client.vercel.app', 'https://genesisio-client-thegenesis-projects.vercel.app', 'https://genesisio-client-git-main-thegenesis-projects.vercel.app'],
-    methods: ["POST", "GET", "PATCH", "DELETE", "PUT"],
+    methods: ["POST", "GET", "PATCH", "DELETE", "PUT", "OPTIONS"],
     credentials: true
 }));
 
