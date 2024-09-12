@@ -13,10 +13,12 @@ const handlePreflight = (req, res, next) => {
         res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
         res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
         res.header('Access-Control-Allow-Origin', req.headers.origin); // Dynamically set the origin
+        res.header('Access-Control-Allow-Credentials', 'true'); // Allow credentials
         return res.status(200).json({});
     }
     next();
 };
+
 const setRoutePath = () => (req, res, next) => {
     req.routePath = req.params
     next();

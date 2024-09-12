@@ -31,7 +31,7 @@ app.use(handlePreflight); // Apply preflight middleware here
 const store = new MongoDBStore(session);
 var sessionStorage = new store({
     uri: process.env.MONGO_URI,
-    collection: collectionName,
+    collection: "mySessions",
     connectionOptions: {
         serverSelectionTimeoutMS: 60000
     }
