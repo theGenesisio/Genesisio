@@ -21,9 +21,13 @@ const [app, port] = [express(), process.env.PORT || 3000];
 app.use(json());
 app.use(urlencoded({ extended: true }));
 let corsOptions = {
+<<<<<<< HEAD
     origin: ['https://www.genesisio.xyz', 'https://genesisio.xyz'],
     methods: ["POST", "GET", "PATCH", "DELETE", "PUT", "OPTIONS"],
     credentials: true
+=======
+    origin: "*"
+>>>>>>> 62b6ba8dbbb184091d1c2b46b0063fa0d5063156
 }
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions))
