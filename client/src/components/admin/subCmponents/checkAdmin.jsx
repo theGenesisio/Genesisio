@@ -6,7 +6,6 @@ const checkAdmin = ({ children }) => {
   const storedSessionValid = JSON.parse(
     window.localStorage.getItem("adminSession")
   );
-  console.log(storedSessionValid);
   if (admin !== null && storedSessionValid) {
     return <Navigate to="/admin/dashboard" />;
   }

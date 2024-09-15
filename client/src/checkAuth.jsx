@@ -7,7 +7,6 @@ const checkAuth = ({ children }) => {
   const storedSessionValid = JSON.parse(
     window.localStorage.getItem("IsSessionValid")
   );
-  console.log(storedSessionValid);
   if (user !== null && storedSessionValid) {
     return <Navigate to="/genesisio/dashboard" />;
   }

@@ -37,7 +37,6 @@ useEffect(() => {
     return () => clearInterval(intervalId); // Clear interval on component unmount
   }, []);
   
-  console.log(storedSessionValid);
   if (user === null || !storedSessionValid) {
     return <Navigate to="/auth/sign-in" />;
   }
