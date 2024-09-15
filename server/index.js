@@ -20,12 +20,13 @@ const [app, port] = [express(), process.env.PORT || 3000];
 
 app.use(json());
 app.use(urlencoded({ extended: true }));
-app.use(cors({
-    origin: ['https://www.genesisio.xyz', 'https://genesisio.xyz', 'https://genesisio-client.vercel.app', 'https://genesisio-client-thegenesis-projects.vercel.app', 'https://genesisio-client-git-main-thegenesis-projects.vercel.app', "http://localhost:5173"],
+let corsOptions = {
+    origin: ['https://www.genesisio.xyz', 'https://genesisio.xyz', 'https://genesisio-client.vercel.app', 'https://genesisio-client-thegenesis-projects.vercel.app', 'https://genesisio-client-git-main-thegenesis-projects.vercel.app'],
     methods: ["POST", "GET", "PATCH", "DELETE", "PUT", "OPTIONS"],
     credentials: true
-}));
-
+}
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions))
 app.use(handlePreflight); // Apply preflight middleware here
 
 const store = new MongoDBStore(session);
