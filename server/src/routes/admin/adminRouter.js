@@ -266,7 +266,7 @@ Router.route("/tiers/requests/mail/:email-:userId")
         if (!mail) {
             return res.status(500).send({ message: "Mail operation failed", statusCode: 500, data: { mail: mail } });
         }
-        res.status(200).send({ message: "Mail sent", statusCode: 200, data: { mail: {} } });
+        res.status(200).send({ message: "Mail sent", statusCode: 200, data: { mail: mail } });
     })
 Router.route("/packages")
     .get(isAuthenticated, async (req, res) => {
