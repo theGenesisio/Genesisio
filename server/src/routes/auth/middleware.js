@@ -81,14 +81,7 @@ const completeRegistration = async (req, res, next) => {
                 },
                 to: email,
                 subject: 'Complete Your Registration',
-                html: generateEmailHtml(fullname, otp),
-                attachments: [
-                    {
-                        filename: 'GenesisioLogo.png',
-                        path: path.join(__dirname, '../../assets/', 'GenesisioLogo.png'),
-                        cid: 'logo' // same cid value as in the html img src
-                    }
-                ]
+                html: generateEmailHtml(fullname, otp)
             });
 
             if (info.accepted.includes(email)) {
@@ -104,7 +97,7 @@ const completeRegistration = async (req, res, next) => {
         res.status(403).json({ message: 'Email is already associated with a registered user', statusCode: 403 });
     }
 };
-const upgradeEmail = async (fullname, email, instruction) => {
+const upgradeEmail = async (email, instruction) => {
     const transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 587,
@@ -122,14 +115,7 @@ const upgradeEmail = async (fullname, email, instruction) => {
             },
             to: email,
             subject: 'Upgrade your account tier',
-            html: generateUpgradeEmail(fullname, instruction),
-            attachments: [
-                {
-                    filename: 'GenesisioLogo.png',
-                    path: path.join(__dirname, '../../assets/', 'GenesisioLogo.png'),
-                    cid: 'logo' // same cid value as in the html img src
-                }
-            ]
+            html: generateUpgradeEmail(instruction)
         });
 
         if (info.accepted.includes(email)) {
@@ -158,14 +144,7 @@ const onBoardingEmail = async (fullname, email) => {
             },
             to: email,
             subject: 'Welcome to Genesisio',
-            html: generateOnboardingEmailHtml(fullname),
-            attachments: [
-                {
-                    filename: 'GenesisioLogo.png',
-                    path: path.join(__dirname, '../../assets/', 'GenesisioLogo.png'),
-                    cid: 'logo' // same cid value as in the html img src
-                }
-            ]
+            html: generateOnboardingEmailHtml(fullname)
         });
 
         if (info.accepted.includes(email)) {
@@ -217,14 +196,7 @@ const requestOTPForReset = async (req, res, next) => {
                 },
                 to: email,
                 subject: 'Reset your password',
-                html: resetPasswordHTML(otp),
-                attachments: [
-                    {
-                        filename: 'GenesisioLogo.png',
-                        path: path.join(__dirname, '../../assets/', 'GenesisioLogo.png'),
-                        cid: 'logo' // same cid value as in the html img src
-                    }
-                ]
+                html: resetPasswordHTML(otp)
             });
 
             if (info.accepted.includes(email)) {

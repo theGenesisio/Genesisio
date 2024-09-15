@@ -29,7 +29,7 @@ export default function NavbarMain() {
           <Typography
             as="li"
             variant="small"
-            className="flex items-center gap-x-2 p-1 transition-colors duration-300 hover:text-white"
+            className="flex items-center gap-x-2 p-1 transition-colors duration-300 hover:text-accent-green"
             key={link}
           >
             {NavIcons[i]}
@@ -46,7 +46,7 @@ export default function NavbarMain() {
   );
 
   return (
-    <Navbar className="mx-auto max-w-screen-3xl px-4 py-2 lg:py-4 bg-primary-blue border-secondary-blue border-0 border-b-2 text-accent-green rounded-none">
+    <Navbar className="mx-auto max-w-screen-3xl px-4 py-2 lg:py-4 bg-primary-blue border-secondary-blue border-0 border-b-2 text-white rounded-none">
       <div className="w-full mx-auto flex items-center justify-between">
         <div className="flex flex-row items-center gap-1">
           <img src={logoSVG} alt="Genesisio Logo" className="lg:h-10 h-8" />
@@ -65,7 +65,7 @@ export default function NavbarMain() {
               <Typography
                 as="li"
                 variant="small"
-                className="flex items-center gap-x-2 p-1 transition-colors duration-300 font-medium text-base hover:text-white"
+                className="flex items-center gap-x-2 p-1 transition-colors duration-300 font-medium text-base hover:text-accent-green"
                 key="packages"
               >
                 {packageIcon}
@@ -73,10 +73,10 @@ export default function NavbarMain() {
               </Typography>
             </MenuHandler>
             <MenuList className="bg-primary-blue border-0 text-white">
-              <MenuItem className="hover:text-white">
+              <MenuItem className="hover:text-accent-green">
                 <Link to="/genesisio/packages">Subcribe to a package</Link>
               </MenuItem>
-              <MenuItem className="hover:text-white">
+              <MenuItem className="hover:text-accent-green">
                 <Link to="/genesisio/upgrade">Upgrade</Link>
               </MenuItem>
             </MenuList>
@@ -95,7 +95,7 @@ export default function NavbarMain() {
           <Typography
             as="li"
             variant="small"
-            className="flex items-center gap-x-2 p-1 transition-colors duration-300 hover:text-white"
+            className="flex items-center gap-x-2 p-1 transition-colors duration-300 hover:text-accent-green"
           >
             <Link
               to="/genesisio/profile"
@@ -149,7 +149,7 @@ export default function NavbarMain() {
           <Typography
             as="li"
             variant="small"
-            className="flex items-center gap-x-2 p-1 transition-colors duration-300 hover:text-white"
+            className="flex items-center gap-x-2 p-1 transition-colors duration-300 hover:text-accent-green"
           >
             {ProfileIcon}
             <Link
@@ -165,7 +165,7 @@ export default function NavbarMain() {
               <Typography
                 as="li"
                 variant="small"
-                className="flex items-center gap-x-2 p-1 transition-colors duration-300 font-medium text-base hover:text-white"
+                className="flex items-center gap-x-2 p-1 transition-colors duration-300 font-medium text-base hover:text-accent-green"
                 key="packages"
               >
                 {packageIcon}
@@ -173,10 +173,10 @@ export default function NavbarMain() {
               </Typography>
             </MenuHandler>
             <MenuList className="bg-primary-blue border-0 text-white">
-              <MenuItem className="hover:text-white">
+              <MenuItem className="hover:text-accent-green">
                 <Link to="/genesisio/packages">Subcribe to a package</Link>
               </MenuItem>
-              <MenuItem className="hover:text-white">
+              <MenuItem className="hover:text-accent-green">
                 <Link to="/genesisio/upgrade">Upgrade</Link>
               </MenuItem>
             </MenuList>

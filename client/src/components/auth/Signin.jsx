@@ -37,7 +37,11 @@ const Signin = () => {
       );
       if (response) {
         const data = await response.json();
-        setUser(data?.user);
+         window.localStorage.setItem(
+           "genesisio_user",
+           JSON.stringify(data.user)
+         );
+         setUser(data.user);
         setserverResponse(data);
       } else if (!response) {
         setserverResponse((prev) => ({
@@ -155,9 +159,7 @@ const Signin = () => {
             code={serverResponse.statusCode}
           />
         )}
-        {serverResponse.statusCode === 200 && (
-          <Navigate to="/genesisio/"/>
-        )}
+        {serverResponse.statusCode === 200 && <Navigate to="/genesisio/dashboard" />}
       </div>
     </section>
   );

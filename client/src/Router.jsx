@@ -24,6 +24,8 @@ import Logout from "./components/auth/Logout";
 import Ticker from "./components/subcomponents/TradeviewWidget/Ticker";
 import Tickertape from "./components/subcomponents/TradeviewWidget/Tickertape";
 import ProtectedRoute from "./ProtectedRoute";
+import CheckAuth from "./checkAuth";
+import CheckAdmin from "./components/admin/subCmponents/checkAdmin";
 import ProtectedAdmin from "./components/admin/subCmponents/ProtectedAdmin";
 import AdminNavbar from "./components/admin/adminNavbar";
 import AdminDashboard from "./components/admin/adminDashboard";
@@ -33,7 +35,6 @@ import AdminProfiles from "./components/admin/adminProfiles";
 import AdminWithdrawals from "./components/admin/adminWithdrawals";
 import AdminSignIn from "./components/admin/adminSignIn";
 import AdminUpgrade from "./components/admin/adminUpgrade";
-import UserForm from "./components/pages/text";
 import Upgrade from "./components/pages/Upgrade";
 import AdminPackages from "./components/admin/adminPackages";
 export default function Router() {
@@ -110,10 +111,6 @@ export default function Router() {
       ),
       children: [
         {
-          path: "test",
-          element: <UserForm />,
-        },
-        {
           path: "",
           element: <Dashboard />,
         },
@@ -165,11 +162,19 @@ export default function Router() {
       children: [
         {
           path: "",
-          element: <SignIn />,
+          element: (
+            <CheckAuth>
+              <SignIn />
+            </CheckAuth>
+          ),
         },
         {
           path: "sign-in",
-          element: <SignIn />,
+          element: (
+            <CheckAuth>
+              <SignIn />
+            </CheckAuth>
+          ),
         },
         {
           path: "logout",
@@ -177,11 +182,19 @@ export default function Router() {
         },
         {
           path: "sign-up",
-          element: <SignUp />,
+          element: (
+            <CheckAuth>
+              <SignUp />
+            </CheckAuth>
+          ),
         },
         {
           path: "confirm-email",
-          element: <ConfirmEmail />,
+          element: (
+            <CheckAuth>
+              <ConfirmEmail />
+            </CheckAuth>
+          ),
         },
         {
           path: "confirm-code",
@@ -195,7 +208,11 @@ export default function Router() {
     },
     {
       path: "/admin/auth",
-      element: <AdminAuth />,
+      element: (
+        <CheckAdmin>
+          <AdminAuth />
+        </CheckAdmin>
+      ),
       children: [
         {
           path: "",

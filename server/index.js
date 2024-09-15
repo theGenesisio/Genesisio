@@ -8,7 +8,7 @@ import session from 'express-session';
 import MongoDBStore from 'connect-mongodb-session';
 import passport from "passport";
 import "./src/mongodb/LivePrices.js";
-const { connect, connection } = mongoose;
+const { connect } = mongoose;
 
 connect(process.env.MONGO_URI, {
     serverSelectionTimeoutMS: 60000
@@ -21,7 +21,7 @@ const [app, port] = [express(), process.env.PORT || 3000];
 app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use(cors({
-    origin: ['https://genesisio.xyz', 'https://www.genesisio.xyz', 'https://genesisio-client.vercel.app', 'https://genesisio-client-thegenesis-projects.vercel.app', 'https://genesisio-client-git-main-thegenesis-projects.vercel.app'],
+    origin: ['https://genesisio.xyz', 'https://www.genesisio.xyz', 'https://genesisio-client.vercel.app', 'https://genesisio-client-thegenesis-projects.vercel.app', 'https://genesisio-client-git-main-thegenesis-projects.vercel.app', "http://localhost:5173"],
     methods: ["POST", "GET", "PATCH", "DELETE", "PUT", "OPTIONS"],
     credentials: true
 }));

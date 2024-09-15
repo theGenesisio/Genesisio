@@ -147,8 +147,9 @@ Router.route("/profiles/img/:email")
     })
 Router.route("/profile/update/:_id")
     .patch(isAuthenticated, async (req, res) => {
-        const { phone, country, city, state, occupation, gender, dob } = req.body
+        const { phone, country, city, state, occupation, gender, dob, fullname } = req.body
         let update = {
+            fullname: fullname,
             address: { city: city, state: state, country: country },
             phone: phone,
             dob: dob,

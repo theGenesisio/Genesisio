@@ -150,8 +150,8 @@ Router.route("/deposits/:depositID")
                 ? 'Status change failed'
                 : update && newStatus !== "completed"
                     ? 'Status updated'
-                : !credit
-                    ? 'Credit failed'
+                    : !credit
+                        ? 'Credit failed'
                         : 'Successfully update to completed status and user account credited';
 
         if (!update) {
@@ -259,10 +259,9 @@ Router.route("/tiers/requests/mail/:email-:userId")
     .post(isAuthenticated, async (req, res) => {
         const { email, userId } = req.params
         const { number, _id } = req.body
-        const [requestedTierArray, user] = await Promise.all([findAnyByUser({ number: number }, 7), findAnyByID(userId)]);
-        const { instruction } = requestedTierArray[0]
-        console.log(requestedTierArray,instruction);
-        let mail = await upgradeEmail(user.fullname, email, instruction)
+        const [requestedTierArray] = await Promise.all([findAnyByUser({ number: number }, 7)]);
+        const { instructions } = requestedTierArray[0]
+        let mail = await upgradeEmail(email, instructions)
         mail && await adminUpdateRecords(_id, { status: "mailed" }, 8)
         if (!mail) {
             return res.status(500).send({ message: "Mail operation failed", statusCode: 500, data: { mail: mail } });

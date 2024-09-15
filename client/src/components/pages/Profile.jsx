@@ -3,6 +3,7 @@ import {
   dropfileIcon,
   locationIcon,
   phoneIcon,
+  ProfileIcon,
   workIcon,
 } from "../../assets/utilities";
 import React, { useContext, useEffect, useState } from "react";
@@ -186,6 +187,28 @@ const Profile = () => {
           >
             <div className="flex flex-col lg:flex-row justify-between gap-5">
               <div className="relative flex items-center w-full">
+                <span className="absolute mr-2 text-gray-400">
+                  {ProfileIcon}
+                </span>
+                <input
+                  type="text"
+                  {...register("fullname", {
+                    required: "full name is required",
+                    minLength: {
+                      value: 2,
+                      message: "Full name must be at least words",
+                    },
+                  })}
+                  className="block w-full"
+                  placeholder="Full name"
+                />
+                {errors.fullname && (
+                  <span className="text-red-500">
+                    {errors.fullname.message}
+                  </span>
+                )}
+              </div>
+              <div className="relative flex items-center w-full">
                 <span className="absolute mx-1 text-gray-400">{phoneIcon}</span>
                 <input
                   type="text"
@@ -356,7 +379,6 @@ const Profile = () => {
           </form>
         </div>
       </div>
-      {response?.statusCode === 200 && <Navigate to="/genesisio/dashboard" />}
     </section>
   );
 };

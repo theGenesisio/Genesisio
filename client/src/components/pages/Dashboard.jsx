@@ -16,8 +16,8 @@ const Dashboard = () => {
       className="flex flex-col min-h-screen py-8
      mx-auto"
     >
-      <h1 className="text-white text-start text-topic font-semibold mb-5 dash flex flex-row">
-        <span className="font-normal">Welcome,</span>
+      <h1 className="text-white text-start text-topic font-bold mb-5 dash flex flex-row">
+        <span className="font-normal text-semiTopic">Welcome,</span>
         <Badge
           content={user.tier}
           placement="top-end"
@@ -29,7 +29,7 @@ const Dashboard = () => {
                 : "bg-blue-700 text-white"
           }
         >
-          {` ${user?.fullname.split(" ", 1)}`}
+          {user.fullname}
         </Badge>
       </h1>
       <Alert />

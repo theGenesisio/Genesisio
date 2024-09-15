@@ -113,7 +113,7 @@ const adminUpgrade = () => {
             )}
           </div>
           <Select
-            label="Upgrade tier to:"
+            label="Tier:"
             value={newTier}
             size="xs"
             variant="standard"
