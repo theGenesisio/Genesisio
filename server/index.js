@@ -21,8 +21,7 @@ const [app, port] = [express(), process.env.PORT || 3000];
 app.use(json());
 app.use(urlencoded({ extended: true }));
 let corsOptions = {
-    origin: "*",
-    credentials: true
+    origin: "*"
 }
 // let corsOptions = {
 //     origin: ['https://www.genesisio.xyz', 'https://genesisio.xyz', 'https://genesisio-client.vercel.app', 'https://genesisio-client-thegenesis-projects.vercel.app', 'https://genesisio-client-git-main-thegenesis-projects.vercel.app'],
