@@ -46,7 +46,7 @@ var sessionStorage = new store({
 sessionStorage.on('error', function (err) {
     console.log(err);
 });
-
+const isProduction = process.env.NODE_ENV === 'production';
 app.use(session({
     store: sessionStorage,
     secret: process.env.SECRET_KEY,
@@ -54,7 +54,9 @@ app.use(session({
     saveUninitialized: false,
     cookie: {
         maxAge: 12 * 60 * 60 * 1000,
-        secure: process.env.NODE_ENV === 'production' 
+        secure: isProduction,
+        httpOnly: isProduction,
+        sameSite: isProduction ? 'strict' : 'lax'
     }
 }));
 
