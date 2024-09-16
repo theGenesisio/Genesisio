@@ -23,11 +23,12 @@ const AuthProvider = ({ children }) => {
           JSON.stringify(data.user)
         );
         setUser(data.user);
-      } else {
-        window.localStorage.setItem("IsSessionValid", JSON.stringify(false));
-        window.localStorage.removeItem("genesisio_user");
-        setUser(null);
       }
+      //  else {
+      //   window.localStorage.setItem("IsSessionValid", JSON.stringify(false));
+      //   window.localStorage.removeItem("genesisio_user");
+      //   setUser(null);
+      // }
     };
 
     authChecker(); // Check session on initial render

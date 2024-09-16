@@ -70,6 +70,7 @@ Router.route("/complete-registration")
 // check login status
 Router.route("/check-session")
     .get((req, res) => {
+        console.log(req.user);
         if (!req.user) { return res.json({ message: 'Unauthorized request.', statusCode: 401, user: null }) }
         if (req.user.isAdmin) { return res.json({ message: 'Unauthorized request.', statusCode: 204, user: null }) }
         res.status(200).json({ message: 'Access granted', statusCode: 200, user: req.user });

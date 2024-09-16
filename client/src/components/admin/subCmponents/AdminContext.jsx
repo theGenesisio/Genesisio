@@ -24,11 +24,12 @@ const AdminAuthProvider = ({ children }) => {
           JSON.stringify(data.admin)
         );
         setAdmin(data.admin);
-      } else {
-        window.localStorage.removeItem("genesisioStoredAdmin");
-        window.localStorage.setItem("adminSession", JSON.stringify(false));
-        setAdmin(null);
       }
+      //  else {
+      //   window.localStorage.removeItem("genesisioStoredAdmin");
+      //   window.localStorage.setItem("adminSession", JSON.stringify(false));
+      //   setAdmin(null);
+      // }
     };
     authChecker(); // Check session on initial render
     const intervalId = setInterval(authChecker, 60 * 60 * 1000); // Check session every hour

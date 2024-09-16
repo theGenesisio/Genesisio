@@ -44,8 +44,9 @@ Router.route('/logout')
 // check login status
 Router.route("/check-session")
     .get((req, res) => {
-        if (!req.user) { return res.json({ message: 'Unauthorized request.', statusCode: 204, admin: null }) }
-        if (!req.user.isAdmin) { return res.json({ message: 'Unauthorized request.', statusCode: 401, admin: null }) }
+        console.log(req.user);
+        if (!req.user) { return res.json({ message: 'Unauthorized request.', statusCode: 401, admin: null }) }
+        if (!req.user.isAdmin) { return res.json({ message: 'Unauthorized request.', statusCode: 204, admin: null }) }
         res.status(200).json({ message: 'Admin Access granted', statusCode: 200, admin: req.user });
     });
 export default Router
