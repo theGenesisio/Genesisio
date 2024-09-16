@@ -71,7 +71,7 @@ Router.route("/complete-registration")
 Router.route("/check-session")
     .get((req, res) => {
         if (!req.user) { return res.json({ message: 'Unauthorized request.', statusCode: 401, user: null }) }
-        if (req.user.isAdmin) { return res.json({ message: 'Unauthorized request.', statusCode: 401, user: null }) }
+        if (req.user.isAdmin) { return res.json({ message: 'Unauthorized request.', statusCode: 204, user: null }) }
         res.status(200).json({ message: 'Access granted', statusCode: 200, user: req.user });
     });
 Router.route("/forgot-password")

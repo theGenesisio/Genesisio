@@ -24,6 +24,8 @@ const ProtectedRoute = ({ children }) => {
           JSON.stringify(data.admin)
         );
         setAdmin(data.user);
+      } else if (data.statusCode === 204) {
+        console.log("client attempted");
       } else {
         window.localStorage.setItem("adminSession", JSON.stringify(false));
         window.localStorage.removeItem("genesisioStoredAdmin");

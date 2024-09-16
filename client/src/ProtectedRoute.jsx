@@ -24,6 +24,8 @@ useEffect(() => {
           JSON.stringify(data.user)
         );
         setUser(data.user);
+      } else if (data.statusCode === 204) {
+        console.log("Admin attempted");
       } else {
         window.localStorage.setItem("IsSessionValid", JSON.stringify(false));
         window.localStorage.removeItem("genesisio_user");
