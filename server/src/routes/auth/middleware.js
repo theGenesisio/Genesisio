@@ -10,10 +10,10 @@ import { findAnyByUser } from "../../mongodb/methods.js";
 import { generateEmailHtml, generateOnboardingEmailHtml, generateUpgradeEmail, resetPasswordHTML } from "./mailing.js";
 const handlePreflight = (req, res, next) => {
     if (req.method === 'OPTIONS') {
-        res.header('Access-Control-Allow-Origin', req.headers.origin); // Dynamically set the origin
+        res.header('Access-Control-Allow-Origin', req.headers.origin); 
         res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
         res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-        res.header('Access-Control-Allow-Credentials', 'true'); // Allow credentials
+        res.header('Access-Control-Allow-Credentials', 'true');
         return res.status(200).json({});
     }
     next();

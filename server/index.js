@@ -11,7 +11,7 @@ import "./src/mongodb/LivePrices.js";
 const { connect } = mongoose;
 
 connect(process.env.MONGO_URI, {
-    serverSelectionTimeoutMS: 60000
+    serverSelectionTimeoutMS: 100000
 })
     .then(() => console.log('Connected to MongoDB Atlas successfully'))
     .catch(err => console.log(`ERROR In Connection: \n ${err}`));
@@ -20,26 +20,27 @@ const [app, port] = [express(), process.env.PORT || 3000];
 
 app.use(json());
 app.use(urlencoded({ extended: true }));
+const allowedOrigins = {
+    development: 'http://localhost:5173',
+    production: 'https://www.genesisio.xyz'
+};
 let corsOptions = {
-<<<<<<< HEAD
-    origin: ['https://www.genesisio.xyz', 'https://genesisio.xyz'],
+    origin: allowedOrigins[process.env.NODE_ENV],
     methods: ["POST", "GET", "PATCH", "DELETE", "PUT", "OPTIONS"],
-    credentials: true
-=======
-    origin: "*"
->>>>>>> 62b6ba8dbbb184091d1c2b46b0063fa0d5063156
+    credentials: true,
+    optionsSuccessStatus: 200
 }
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions))
-app.use(handlePreflight); 
+app.use(handlePreflight);
 
 const store = new MongoDBStore(session);
 var sessionStorage = new store({
     uri: process.env.MONGO_URI,
     collection: "mySessions",
     connectionOptions: {
-        serverSelectionTimeoutMS: 60000
-    }
+        serverSelectionTimeoutMS: 90000
+    },
+    optionsSuccessStatus: 200
 });
 
 sessionStorage.on('error', function (err) {
