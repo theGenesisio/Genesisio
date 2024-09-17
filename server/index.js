@@ -20,6 +20,8 @@ const [app, port] = [express(), process.env.PORT || 3000];
 
 app.use(json());
 app.use(urlencoded({ extended: true }));
+app.set('trust proxy', 1); // trust first proxy
+
 const allowedOrigins = {
     development: 'http://localhost:5173',
     production: 'https://www.genesisio.xyz'
