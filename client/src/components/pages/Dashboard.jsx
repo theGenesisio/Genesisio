@@ -16,8 +16,8 @@ const Dashboard = () => {
       className="flex flex-col min-h-screen py-8
      mx-auto"
     >
+      <p className="font-normal text-demiTopic text-white">Welcome,</p>
       <h1 className="text-white text-start text-topic font-bold mb-5 dash flex flex-row">
-        <span className="font-normal text-semiTopic">Welcome,</span>
         <Badge
           content={user.tier}
           placement="top-end"

@@ -58,8 +58,9 @@ app.use(session({
         maxAge: 12 * 60 * 60 * 1000,
         secure: isProduction,
         httpOnly: !isProduction,
-        sameSite: isProduction ? 'strict' : 'lax'
-    }
+        sameSite: isProduction ? 'None' : 'lax'
+    },
+    logErrors: true
 }));
 
 app.use(passport.initialize());
