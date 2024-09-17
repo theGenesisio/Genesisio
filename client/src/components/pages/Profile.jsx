@@ -56,7 +56,6 @@ const Profile = () => {
           message: "Network response was not ok",
           statusCode: 403,
         });
-        throw new Error("Network response was not ok");
       }
       const res = await response.json();
       setResponse(res);

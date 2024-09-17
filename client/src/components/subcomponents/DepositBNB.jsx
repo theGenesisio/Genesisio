@@ -70,12 +70,14 @@ const DepositBNB = () => {
           message: "Network response was not ok",
           statusCode: 403,
         });
-        throw new Error("Network response was not ok");
       }
       const data = await response.json();
       setResponse(data);
     } catch (error) {
-      setResponse({ message: error, statusCode: 403 });
+      setResponse({
+        message: "An error occured, please try again later",
+        statusCode: 403,
+      });
       console.error("There was a problem with the fetch operation:", error);
     }
   };

@@ -20,7 +20,6 @@ const DepositAddress = (props) => {
 
         if (!response.ok) {
           setRetry((prevRetry) => prevRetry + 1);
-          throw new Error("Network response was not ok");
         }
 
         const data = await response.json();

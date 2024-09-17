@@ -39,8 +39,7 @@ export default function UpgradeCard(props) {
         }),
       });
       if (!response.ok) {
-        setError({ message: "An error occurred", statusCode: 500 });
-        throw new Error("Network response was not ok");
+        setError({ message: "Network response was not ok", statusCode: 500 });
       }
       const result = await response.json();
       setError(result);

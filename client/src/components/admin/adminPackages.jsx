@@ -40,9 +40,8 @@ const adminPackages = () => {
           }
         );
         if (!response.ok) {
-          setError({ message: "An error occurred", statusCode: 500 });
+          setError({ message: "Network response was not ok", statusCode: 401 });
           setRetry((prevRetry) => prevRetry + 1);
-          throw new Error("Network response was not ok");
         }
         const result = await response.json();
         setpackages(result.data.packages);

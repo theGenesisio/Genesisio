@@ -47,7 +47,7 @@ try {
           }
         );
         if (!response.ok) {
-          throw new Error("Network response was not ok");
+          setError({ message: "Network response was not ok", statusCode: 401 });
         }
         const result = await response.json();
         setNetworks(result.data.networks);
@@ -95,7 +95,6 @@ try {
           message: "Network response was not ok",
           statusCode: 403,
         });
-        throw new Error("Network response was not ok");
       }
       const result = await response.json();
       setRetry((prev) => prev + 1);

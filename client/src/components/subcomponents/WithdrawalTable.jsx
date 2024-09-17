@@ -29,7 +29,7 @@ export default function WithdrawalTable() {
         }
       );
       if (!response.ok) {
-        throw new Error("Network response was not ok");
+        setError({ message: "Network response was not ok", statusCode: 400 });
       }
       const result = await response.json();
       return result.data.withdrawals;

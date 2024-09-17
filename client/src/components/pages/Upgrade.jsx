@@ -15,9 +15,8 @@ const Upgrade = () => {
           },
         });
         if (!response.ok) {
-          setError({ message: "An error occurred", statusCode: 500 });
+          setError({ message: "Network response was not ok", statusCode: 500 });
           setRetry((prevRetry) => prevRetry + 1);
-          throw new Error("Network response was not ok");
         }
         const result = await response.json();
         setTiers(result.data.tiers);

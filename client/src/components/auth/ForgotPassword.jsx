@@ -34,7 +34,6 @@ const ForgotPassword = () => {
           message: errorData.message,
           statusCode: response.status,
         });
-        throw new Error("Network response was not ok");
       }
       const result = await response.json();
       setResponse(result);

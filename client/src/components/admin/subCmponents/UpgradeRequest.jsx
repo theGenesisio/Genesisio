@@ -35,8 +35,10 @@ export default function UpgradeRequest(props) {
         }
       );
       if (!response.ok) {
-        setResponse({ message: "An error occurred", statusCode: 500 });
-        throw new Error("Network response was not ok");
+        setResponse({
+          message: "Network response was not ok",
+          statusCode: 500,
+        });
       }
       const result = await response.json();
       setResponse(result);
@@ -69,8 +71,10 @@ export default function UpgradeRequest(props) {
         }
       );
       if (!response.ok) {
-        setResponse({ message: "An error occurred", statusCode: 500 });
-        throw new Error("Network response was not ok");
+        setResponse({
+          message: "Network response was not ok",
+          statusCode: 500,
+        });
       }
       const result = await response.json();
       setResponse(result);

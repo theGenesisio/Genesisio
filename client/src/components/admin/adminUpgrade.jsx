@@ -32,9 +32,8 @@ const adminUpgrade = () => {
           }
         );
         if (!response.ok) {
-          setError({ message: "An error occurred", statusCode: 500 });
+          setError({ message: "Network response was not ok", statusCode: 500 });
           setRetry((prevRetry) => prevRetry + 1);
-          throw new Error("Network response was not ok");
         }
         const result = await response.json();
         setTiers(result.data.tiers);
@@ -64,8 +63,7 @@ const adminUpgrade = () => {
         }
       );
       if (!response.ok) {
-        setError({ message: "An error occurred", statusCode: 500 });
-        throw new Error("Network response was not ok");
+        setError({ message: "Network response was not ok", statusCode: 500 });
       }
       const result = await response.json();
       setError(result);

@@ -48,7 +48,6 @@ export default function AdminDeposit(props) {
       );
       if (!response.ok) {
         setResponse({ message: "An error occurred", statusCode: 500 });
-        throw new Error("Network response was not ok");
       }
       const result = await response.json();
       setResponse(result);
