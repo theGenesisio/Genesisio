@@ -9,7 +9,7 @@ const RecentProfileCard = (props) => {
       to="/admin/profiles"
       className="block py-2 hover:bg-accent-green hover:p-3 hover:text-white rounded-md transition-all duration-100"
     >
-      <Typography variant="h6">{fullname}</Typography>
+      <Typography variant="h6" className="text-white">{fullname}</Typography>
       <div className="flex flex-row justify-between text-gray-400 hover:text-white transition-all duration-100">
         <Typography variant="small" className="font-normal">
           {email}

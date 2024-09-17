@@ -94,7 +94,8 @@ const Profile = () => {
     formState: { errors, isSubmitting },
   } = useForm({
     defaultValues: {
-      phoneNumber: user?.phone,
+      fullname: user?.fullname,
+      phoneNumber: user?.phone && String(user.phone),
       occupation: user?.occupation,
       gender: user?.gender,
       dob: convertISOToDate(user?.dob),

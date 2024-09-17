@@ -22,7 +22,7 @@ const WithdrawalRequestCard = (props) => {
           className="flex flex-col py-2 hover:bg-accent-green hover:p-3 hover:text-white rounded-md transition-all duration-100"
         >
           <div className="flex flex-row justify-between text-gray-400">
-            <Typography variant="h4">{amount?.toLocaleString()}</Typography>
+            <Typography variant="h4" className="text-white">{amount?.toLocaleString()}</Typography>
             <Typography variant="small" className="font-normal">
               {date}
             </Typography>

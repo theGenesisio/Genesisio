@@ -28,7 +28,6 @@ const Packages = () => {
           throw new Error(`Error: ${response.status} ${response.message}`);
         }
         const res = await response.json();
-        console.log(res);
         let obj = {
           BTC: res.data.prices.find((price) => price.id === 1),
           ETH: res.data.prices.find((price) => price.id === 1027),
