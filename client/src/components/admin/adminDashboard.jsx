@@ -46,7 +46,7 @@ const adminDashboard = () => {
     >
       <p className="font-normal text-white text-demiTopic">Welcome,</p>
       <h1 className="text-white text-start text-topic font-semibold mb-5 dash">
-        {admin?.username && ` ${admin?.username}`}
+        {admin?.username ? ` ${admin?.username}` : `Marsielle`}
       </h1>
       <div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-5">
         {data?.NewDeposits && (
