@@ -10,7 +10,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const Router = _Router();
 // Determine the base directory
-const baseDir = process.env.NODE_ENV === 'production' ? '/var/task/server' : path.join(__dirname, '../../../');
+const baseDir = process.env.NODE_ENV === 'production' ? '/var/task' : path.join(__dirname, '../../../');
 // **  Routes
 Router.route("/")
     .get((req, res) => {
