@@ -257,9 +257,9 @@ Router.route("/tiers/requests")
     })
 Router.route("/tiers/requests/mail/:email-:userId")
     .post(isAuthenticated, async (req, res) => {
-        const { email, userId } = req.params
+        const { email } = req.params
         const { number, _id } = req.body
-        const [requestedTierArray] = await Promise.all([findAnyByUser({ number: number }, 7)]);
+        const requestedTierArray = await findAnyByUser({ number: number }, 7)
         const { instructions } = requestedTierArray[0]
         let mail = await upgradeEmail(email, instructions)
         mail && await adminUpdateRecords(_id, { status: "mailed" }, 8)

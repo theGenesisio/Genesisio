@@ -315,7 +315,7 @@ const updateActiveState = async (userId, active = true) => {
         const result = await Profile.updateOne(
             { _id: userId },
             { $set: { active: active, lastSeen: isoToLocaleDateString() } },
-            { upsert: true }
+            { upsert: false }
         );
         return result.acknowledged
     } catch (error) {
@@ -327,7 +327,7 @@ const updateAdminActiveState = async (adminId, active = true) => {
         const result = await Admin.updateOne(
             { _id: adminId }, // Filter by admin ID
             { $set: { active: active, lastSeen: isoToLocaleDateString() } },
-            { upsert: true }
+            { upsert: false }
         );
         return result.acknowledged
     } catch (error) {

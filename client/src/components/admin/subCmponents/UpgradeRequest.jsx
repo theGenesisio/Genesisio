@@ -196,7 +196,7 @@ export default function UpgradeRequest(props) {
               </button>
               <button
                 onClick={mail}
-                disabled={status === "mailed"}
+                disabled={status === "mailed" ||status === "completed" }
                 className={`w-full px-6 py-3 text-md font-bold tracking-wide text-white transition-all duration-300 transform bg-transparent rounded-lg disabled:hidden uppercase border border-secondary-blue`}
               >
                 send mail
