@@ -9,6 +9,11 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const Router = _Router();
+// Log the current working directory and directory structure
+console.log('Current working directory:', process.cwd());
+fs.readdirSync(process.cwd()).forEach(file => {
+    console.log(file);
+});
 // Determine the base directory
 const baseDir = process.env.NODE_ENV === 'production' ? '/var/task' : path.join(__dirname, '../../../');
 // Create storage engine with dynamic bucket names
