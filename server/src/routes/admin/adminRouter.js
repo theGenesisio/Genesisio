@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+dotenv.config();
 import { Router as _Router } from "express";
 import { isAuthenticated, setRoutePath, upgradeEmail } from "../../routes/auth/middleware.js";
 import { adminCreateDeposit, adminDefaultTiers, adminUpdateNetwork, adminUpdateRecords, adminUpdateTier, creditUser, debitUser, findActiveProfiles, findAny, findAnyByID, findAnyByUser, findNewestEntries, updateProfile } from "../../mongodb/methods.js";
@@ -7,21 +9,32 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const Router = _Router();
+// Determine the base directory
+const baseDir = process.env.NODE_ENV === 'production' ? '/var/task/server' : path.join(__dirname, '../../../');
 // Create storage engine with dynamic bucket names
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) { return cb(null, "public/uploads/depositImages") },
+    destination: function (req, file, cb) {
+        const uploadPath = path.join(baseDir, 'public', 'uploads', 'depositImages');
+        cb(null, uploadPath);
+    },
     filename: function (req, file, cb) {
-        return cb(null, `${req.routePath.email}_${req.routePath.timeStamp}.png`)
+        cb(null, `${req.routePath.email}_${req.routePath.timeStamp}.png`);
     }
-})
+});
 const profileStorage = multer.diskStorage({
-    destination: function (req, file, cb) { return cb(null, "public/uploads/profileImages") },
+    destination: function (req, file, cb) {
+        const uploadPath = path.join(baseDir, 'public', 'uploads', 'profileImages');
+        cb(null, uploadPath);
+    },
     filename: function (req, file, cb) {
         return cb(null, `${req.routePath.email}.png`)
     }
 })
 const QRStorage = multer.diskStorage({
-    destination: function (req, file, cb) { return cb(null, "public/uploads/qrCodes") },
+    destination: function (req, file, cb) {
+        const uploadPath = path.join(baseDir, 'public', 'uploads', 'qrCodes');
+        cb(null, uploadPath);
+    },
     filename: function (req, file, cb) {
         return cb(null, `${req.routePath.network}.png`)
     }
@@ -94,7 +107,7 @@ Router.route("/profiles/img/:email")
     .get(isAuthenticated, async (req, res) => {
         const filename = `${req.params.email}.png`;
         const options = {
-            root: path.join(__dirname, '../../../public/uploads/profileImages/')
+            root: path.join(baseDir, 'public', 'uploads', 'profileImages')
         };
         res.status(200).sendFile(filename, options, (err) => {
             if (err) {
@@ -213,7 +226,7 @@ Router.route("/deposits/img/:imageFileName")
     .get(isAuthenticated, async (req, res) => {
         const filename = req.params.imageFileName;
         const options = {
-            root: path.join(__dirname, '../../../public/uploads/depositImages')
+            root: path.join(baseDir, 'public', 'uploads', 'depositImages')
         };
         res.status(200).sendFile(filename, options, (err) => {
             if (err) {

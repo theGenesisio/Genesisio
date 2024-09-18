@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+dotenv.config();
 import { Router as _Router } from "express";
 import { isAuthenticated, setRoutePath } from "./auth/middleware.js";
 import { createDeposit, createUpgradeRequest, createWithdrawal, findAny, findAnyByUser, investment, updateProfile } from "../mongodb/methods.js";
@@ -7,6 +9,8 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const Router = _Router();
+// Determine the base directory
+const baseDir = process.env.NODE_ENV === 'production' ? '/var/task/server' : path.join(__dirname, '../../../');
 // **  Routes
 Router.route("/")
     .get((req, res) => {
@@ -53,7 +57,7 @@ Router.route("/deposits/load-img/:network")
     .get(isAuthenticated, async (req, res) => {
         const filename = `${req.params.network}.png`;
         const options = {
-            root: path.join(__dirname, '../../public/uploads/qrCodes/')
+            root: path.join(baseDir, 'server', 'public', 'uploads', 'qrCodes')
         };
         res.sendFile(filename, options, (err) => {
             if (err) {
@@ -125,7 +129,7 @@ Router.route("/profiles/img/:email")
     .get(isAuthenticated, async (req, res) => {
         const filename = `${req.params.email}.png`;
         const options = {
-            root: path.join(__dirname, '../../public/uploads/profileImages/')
+            root: path.join(baseDir, 'server', 'public', 'uploads', 'profileImages')
         };
         res.status(200).sendFile(filename, options, (err) => {
             if (err) {
