@@ -16,7 +16,7 @@ fs.readdirSync(process.cwd()).forEach(file => {
     console.log(file);
 });
 // Determine the base directory
-const baseDir = process.env.NODE_ENV === 'production' ? '/var/task' : path.join(__dirname, '../../../');
+const baseDir = process.env.NODE_ENV === 'production' ? process.cwd() : path.join(__dirname, '../../../');
 // Create storage engine with dynamic bucket names
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
