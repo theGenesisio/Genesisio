@@ -8,6 +8,7 @@ import session from 'express-session';
 import MongoDBStore from 'connect-mongodb-session';
 import passport from "passport";
 import "./src/mongodb/LivePrices.js";
+import "./public/log.js"
 const { connect } = mongoose;
 
 connect(process.env.MONGO_URI, {
