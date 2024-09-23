@@ -220,11 +220,11 @@ async function createUpgradeRequest(args) {
     const { number, email, _id } = args
     try {
         let request = await UpgradeRequest.updateOne(
-            { number: number, userId: _id }, // Corrected filter property
+            { number: number, userId: _id }, 
             {
                 $set: {
                     email: email,
-                    userId: _id, // Corrected field name
+                    userId: _id,
                     status: "pending"
                 }
             },

@@ -103,7 +103,7 @@ Router.route("/profiles/:profileID")
     .patch(isAuthenticated, async (req, res) => {
         const { profileID } = req.params
         let update = await updateProfile(profileID, { tier: req.body.newTier })
-        let message = !update ? `Status change failed` : `Succesfully updated`;
+        let message = !update ? `Tier change failed` : `Succesfully updated`;
         if (!update) {
             return res.status(500).send({ message: message, statusCode: 500, data: { update: update } });
         }

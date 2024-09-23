@@ -61,7 +61,7 @@ const NewDepositCard = (props) => {
               className="h-full w-full object-cover"
             />
           ) : (
-            <p>Loading...</p>
+            <img src="https://placehold.co/400x400?text=Receipt+Loading"></img>
           )}
         </CardHeader>
         <CardBody className="text-white text-end w-full flex flex-col gap-2">

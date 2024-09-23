@@ -10,9 +10,17 @@ const WithdrawalCollapse = (props) => {
   const [address, setAddress] = useState("");
   const [error, setError] = useState({});
   const [redirect, setRedirect] = useState(false);
+  const [convert, setConvert] = useState(0);
+  function coinToUSD(currentValue, amount) {
+    let res = parseFloat(currentValue * amount);
+    return setConvert(res.toLocaleString());
+  }
   useEffect(() => {
     setNetwork(props.network);
   }, [props.network]);
+  useEffect(() => {
+    network !== null && coinToUSD(props?.prices[network]?.price, amount);
+  }, [amount, network]);
 
   const handleAmountChange = (e) => {
     const value = e.target.value;
@@ -109,6 +117,9 @@ const WithdrawalCollapse = (props) => {
     default:
       return (
         <Collapse open={network ? true : false} className="flex flex-col gap-2">
+          {network !== null && (
+            <p className="text-accent-green text-sm">{`${convert} USD`}</p>
+          )}
           <input
             type="text"
             className="block w-full"

@@ -1,42 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Card, CardBody, Typography } from "@material-tailwind/react";
 import { CryptoIcons } from "../../assets/utilities";
 
 const WithdrawalCard = (props) => {
-  const { name, symbol, bal } = props;
-  const [price, setPrice] = useState("..requesting");
-  const [retry, setRetry] = useState(0);
-
-  useEffect(() => {
-    const fetchPrice = async () => {
-      try {
-        const response = await fetch(
-          `${import.meta.env.VITE_APP_API}/price/${symbol}`,
-          {
-            method: "GET",
-            credentials: "include",
-          }
-        );
-        if (!response.ok) {
-          setPrice("...Loading");
-          setRetry((prev) => prev++);
-          throw new Error(`Error: ${response.status} ${response.message}`);
-        }
-        const res = await response.json();
-        res && coinToUSD(res?.data.price, bal.holding);
-      } catch (error) {
-        setPrice("...Loading");
-        setRetry((prev) => prev++);
-        console.log(error);
-      }
-    };
-
-    fetchPrice();
-  }, [retry]);
-
+  const { name, symbol, bal, prices } = props;
   function coinToUSD(currentValue, amount) {
     let res = parseFloat(currentValue * amount);
-    return setPrice(res.toLocaleString());
+    return res.toLocaleString();
   }
   return (
     <Card className="sm:w-full  bg-inherit border border-secondary-blue p-0 shadow-sm shadow-secondary-blue withdraw">
@@ -54,8 +24,8 @@ const WithdrawalCard = (props) => {
           <Typography className="font-bold text-demiTopic">
             {parseFloat(bal.holding).toFixed(7)}
           </Typography>
-          {price && (
-            <Typography className="font-normal text-sm text-accent-green">{`${price} USD`}</Typography>
+          {prices !== null && (
+            <Typography className="font-normal text-sm text-accent-green">{`${coinToUSD(prices[symbol]?.price, bal.holding)}USD`}</Typography>
           )}
         </div>
       </CardBody>

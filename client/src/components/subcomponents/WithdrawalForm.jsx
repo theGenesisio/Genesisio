@@ -2,7 +2,7 @@ import React from "react";
 import Lorem from "../../assets/constants";
 import { Select, Option } from "@material-tailwind/react";
 import WithdrawalCollapse from "./WithdrawalCollapse";
-const WithdrawalForm = () => {
+const WithdrawalForm = (props) => {
   const [value, setValue] = React.useState(null);
   const [Bitcoin, Ethereum, Litecoin, Tether, Binance] = Lorem.financeOptions;
   return (
@@ -58,7 +58,7 @@ const WithdrawalForm = () => {
           </Option>
         </Select>
       </div>
-      <WithdrawalCollapse network={value} />
+      <WithdrawalCollapse network={value} prices={props.prices}/>
     </div>
   );
 };

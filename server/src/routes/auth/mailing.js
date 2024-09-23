@@ -91,6 +91,7 @@ function generateOnboardingEmailHtml(fullname) {
         .content p {
             color: #666;
         }
+        .a{ color: #fffff;}
         .button {
             display: inline-block;
             padding: 10px 20px;
@@ -186,7 +187,6 @@ function generateUpgradeEmail(instruction) {
             <p>We are excited to offer you an opportunity to upgrade your account tier and enjoy exclusive benefits. By upgrading, you will gain access to premium features and enhanced services tailored to your needs.</p>
             <p>Here are your instructions from the admin on how to proceed:</p>
             <p>${instruction}</p>
-            <a href="https://genesisio.xyz/genesisio/upgrade" class="button">Upgrade Now</a>
             <p>If you have any questions, feel free to contact our support team.</p>
         </div>
         <div class="footer">

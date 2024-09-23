@@ -166,15 +166,6 @@ Router.route("/profile/update/:_id")
         }
         res.status(200).send({ message: 'Update successfull!', statusCode: 200 });
     })
-Router.route("/price/:currency")
-    .get(isAuthenticated, async (req, res) => {
-        let priceArray = await findAnyByUser({ symbol: req.params.currency }, 6)
-        let price = priceArray.length > 0 && priceArray[0].price
-        if (priceArray.length < 1) {
-            res.status(500).send({ message: 'Internal server error while updating profile!', statusCode: 500, data: { price: price } });
-        }
-        res.status(200).send({ message: `Live price of ${req.params.currency}`, statusCode: 200, data: { price: price } });
-    })
 Router.route("/price")
     .get(isAuthenticated, async (req, res) => {
         let prices = await findAny(6)

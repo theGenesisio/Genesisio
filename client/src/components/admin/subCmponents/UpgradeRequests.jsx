@@ -10,8 +10,6 @@ import {
 import { isoToLocaleDateString } from "../../../assets/utils";
 import UpgradeRequest from "./UpgradeRequest.jsx";
 const UpgradeRequests = () => {
-  // todo add gsap identifier
-  //  gsapAnimationScrollTrigger({ identifier: ".dash" });
   const [requests, setRequests] = useState();
   const [activeModal, setActiveModal] = useState(null);
   const [error, setError] = useState(null);

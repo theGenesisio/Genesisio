@@ -17,29 +17,29 @@ const MyAssetCard = (props) => {
         <div className="flex flex-row justify-start gap-2">
           {CryptoIcons[symbol]}
           <div className="flex flex-col">
-            <Typography className="font-normal  text-demiTopic">
+            <Typography className="font-normal md:text-demiTopic text-md">
               {name}
             </Typography>
-            <Typography className="font-medium text-sm text-gray-400">
+            <Typography className="font-medium md:text-sm text-gray-400 text-xs">
               {symbol}
             </Typography>
           </div>
         </div>
         <div className="flex flex-col text-end">
-          <Typography className="font-medium text-demiTopic">
+          <Typography className="font-medium md:text-demiTopic text-md">
             {`$${price.toLocaleString()}`}
           </Typography>
           <Typography
-            className={`font-normal text-sm ${change > 1 ? " text-accent-change-green" : "  text-accent-red"}`}
+            className={`font-normal text-xs ${change > 1 ? " text-accent-change-green" : "  text-accent-red"}`}
           >
             {`${change.toPrecision(3)}%`}
           </Typography>
         </div>
         <div className="flex flex-col text-end">
-          <Typography className="font-normal text-demiTopic">
+          <Typography className="font-normal md:text-demiTopic text-md">
             {`$${coinToUSD(user?.wallet?.cryptoBalances[symbol]?.holding, price)}`}
           </Typography>
-          <Typography className="font-medium text-sm text-gray-400">
+          <Typography className="font-medium md:text-sm text-gray-400 text-xs">
             {user?.wallet?.cryptoBalances[symbol]?.holding.toPrecision(5)}
           </Typography>
         </div>
