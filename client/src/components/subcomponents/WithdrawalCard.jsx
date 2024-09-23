@@ -27,6 +27,9 @@ const WithdrawalCard = (props) => {
           {prices !== null && (
             <Typography className="font-normal text-sm text-accent-green">{`${coinToUSD(prices[symbol]?.price, bal.holding)}USD`}</Typography>
           )}
+          {prices === null && (
+            <Typography className="font-normal text-sm text-accent-green">Converting...</Typography>
+          )}
         </div>
       </CardBody>
     </Card>

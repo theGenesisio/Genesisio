@@ -57,7 +57,7 @@ export default function UpgradeRequest(props) {
   const mail = async () => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_APP_API_ADMIN}/tiers/requests/mail/${email}-${_id}`,
+        `${import.meta.env.VITE_APP_API_ADMIN}/tiers/requests/mail/${email}`,
         {
           method: "POST",
           credentials: "include",

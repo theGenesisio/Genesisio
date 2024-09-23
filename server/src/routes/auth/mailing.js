@@ -124,7 +124,7 @@ function generateOnboardingEmailHtml(fullname) {
 </html>
 `;
 }
-function generateUpgradeEmail(instruction) {
+function generateUpgradeEmail(instruction, fullname) {
     let date = new Date();
     return `<!DOCTYPE html>
 <html lang="en">
@@ -183,7 +183,7 @@ function generateUpgradeEmail(instruction) {
     <div class="container">
         <div class="content">
             <h1>Upgrade Your Account Tier</h1>
-            <p>Dear Customer,</p>
+            <p>Dear ${fullname},</p>
             <p>We are excited to offer you an opportunity to upgrade your account tier and enjoy exclusive benefits. By upgrading, you will gain access to premium features and enhanced services tailored to your needs.</p>
             <p>Here are your instructions from the admin on how to proceed:</p>
             <p>${instruction}</p>

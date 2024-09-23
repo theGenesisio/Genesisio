@@ -10,7 +10,7 @@ import { findAnyByUser } from "../../mongodb/methods.js";
 import { generateEmailHtml, generateOnboardingEmailHtml, generateUpgradeEmail, resetPasswordHTML } from "./mailing.js";
 const handlePreflight = (req, res, next) => {
     if (req.method === 'OPTIONS') {
-        res.header('Access-Control-Allow-Origin', req.headers.origin); 
+        res.header('Access-Control-Allow-Origin', req.headers.origin);
         res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
         res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
         res.header('Access-Control-Allow-Credentials', 'true');
@@ -97,7 +97,7 @@ const completeRegistration = async (req, res, next) => {
         res.status(403).json({ message: 'Email is already associated with a registered user', statusCode: 403 });
     }
 };
-const upgradeEmail = async (email, instruction) => {
+const upgradeEmail = async (email, instruction, fullname) => {
     const transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 587,
@@ -115,7 +115,7 @@ const upgradeEmail = async (email, instruction) => {
             },
             to: email,
             subject: 'Upgrade your account tier',
-            html: generateUpgradeEmail(instruction)
+            html: generateUpgradeEmail(instruction, fullname)
         });
 
         if (info.accepted.includes(email)) {

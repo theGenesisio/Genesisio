@@ -274,13 +274,13 @@ Router.route("/tiers/requests")
         }
         res.status(200).send({ message: message, statusCode: 200, data: { update: update } });
     })
-Router.route("/tiers/requests/mail/:email-:userId")
+Router.route("/tiers/requests/mail/:email")
     .post(isAuthenticated, async (req, res) => {
         const { email } = req.params
         const { number, _id } = req.body
-        const requestedTierArray = await findAnyByUser({ number: number }, 7)
+        const [requestedTierArray, profile] = await Promise.all([findAnyByUser({ number: number }, 7), findAnyByUser({ email: email }, 0)])
         const { instructions } = requestedTierArray[0]
-        let mail = await upgradeEmail(email, instructions)
+        let mail = await upgradeEmail(email, instructions, profile[0].fullname)
         mail && await adminUpdateRecords(_id, { status: "mailed" }, 8)
         if (!mail) {
             return res.status(500).send({ message: "Mail operation failed", statusCode: 500, data: { mail: mail } });
