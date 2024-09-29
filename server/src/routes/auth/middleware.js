@@ -8,9 +8,19 @@ const __dirname = path.dirname(__filename);
 import nodemailer from "nodemailer"
 import { findAnyByUser } from "../../mongodb/methods.js";
 import { generateEmailHtml, generateOnboardingEmailHtml, generateUpgradeEmail, resetPasswordHTML } from "./mailing.js";
+// const handlePreflight = (req, res, next) => {
+//     if (req.method === 'OPTIONS') {
+//         res.header('Access-Control-Allow-Origin', req.headers.origin);
+//         res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+//         res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+//         res.header('Access-Control-Allow-Credentials', 'true');
+//         return res.status(200).json({});
+//     }
+//     next();
+// };
 const handlePreflight = (req, res, next) => {
     if (req.method === 'OPTIONS') {
-        res.header('Access-Control-Allow-Origin', req.headers.origin);
+        res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
         res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
         res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
         res.header('Access-Control-Allow-Credentials', 'true');
@@ -18,7 +28,6 @@ const handlePreflight = (req, res, next) => {
     }
     next();
 };
-
 const setRoutePath = () => (req, res, next) => {
     req.routePath = req.params
     next();
