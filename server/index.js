@@ -12,7 +12,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 // Determine the base directory
-const baseDir = process.env.NODE_ENV === 'production' ? process.cwd() : __dirname;
+const baseDir = process.env.NODE_ENV === 'production' ? path.join(process.cwd(), "/server") : __dirname;
 import "./src/mongodb/LivePrices.js";
 const { connect } = mongoose;
 
