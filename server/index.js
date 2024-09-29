@@ -33,24 +33,12 @@ const allowedOrigins = {
     development: 'http://localhost:5173',
     production: 'https://www.genesisio.xyz'
 };
-// let corsOptions = {
-//     origin: allowedOrigins[process.env.NODE_ENV],
-//     methods: ["POST", "GET", "PATCH", "DELETE", "PUT", "OPTIONS"],
-//     credentials: true,
-//     optionsSuccessStatus: 200
-// }
 let corsOptions = {
-    origin: (origin, callback) => {
-        if (allowedOrigins[process.env.NODE_ENV].includes(origin) || !origin) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
+    origin: allowedOrigins[process.env.NODE_ENV],
     methods: ["POST", "GET", "PATCH", "DELETE", "PUT", "OPTIONS"],
     credentials: true,
     optionsSuccessStatus: 200
-};
+}
 app.use(cors(corsOptions));
 app.use(handlePreflight);
 
