@@ -7,8 +7,13 @@ import mongoose from 'mongoose';
 import session from 'express-session';
 import MongoDBStore from 'connect-mongodb-session';
 import passport from "passport";
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+// Determine the base directory
+const baseDir = process.env.NODE_ENV === 'production' ? process.cwd() : __dirname;
 import "./src/mongodb/LivePrices.js";
-import "./public/log.js"
 const { connect } = mongoose;
 
 connect(process.env.MONGO_URI, {
@@ -20,6 +25,7 @@ connect(process.env.MONGO_URI, {
 const [app, port] = [express(), process.env.PORT || 3000];
 
 app.use(json());
+app.use(express.static(path.join(baseDir, "./public/")))
 app.use(urlencoded({ extended: true }));
 app.set('trust proxy', 1); // trust first proxy
 
