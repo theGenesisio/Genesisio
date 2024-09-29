@@ -10,7 +10,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const Router = _Router();
 // Determine the base directory
-const baseDir = process.env.NODE_ENV === 'production' ? process.cwd() : path.join(__dirname, '../../../');
+const baseDir = process.env.NODE_ENV === 'production' ? path.join(process.cwd(), "/server/") : path.join(__dirname, '../../../');
 // Create storage engine with dynamic bucket names
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
