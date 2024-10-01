@@ -25,7 +25,7 @@ const Packages = () => {
         if (!response.ok) {
           setPrices("...Loading");
           setRetry((prev) => prev++);
-          throw new Error(`Error: ${response.status} ${response.message}`);
+          setResponse(response.message);
         }
         const res = await response.json();
         let obj = {
@@ -45,7 +45,6 @@ const Packages = () => {
 
     fetchPrice();
   }, [retry]);
-
   function coinToUSD(currentValue, amount) {
     return parseFloat(currentValue * amount).toLocaleString();
   }
@@ -106,7 +105,7 @@ const Packages = () => {
         <div className="w-full flex flex-col gap-5  max-w-2xl vessel">
           <div className="flex items-center justify-center my-5">
             <Typography className="w-3/4 pb-4 font-demiTopic text-center text-accent-green capitalize border-b-2 border-accent-green">
-              Choose A Deposit Option
+              Choose A Package Option
             </Typography>
           </div>
           <Select
@@ -157,9 +156,8 @@ const Packages = () => {
               >
                 <Typography className="flex flex-row gap-2">
                   <span>Bitcoin</span>
-                  <span className="text-gray-400">{`Balance: ${user?.wallet?.cryptoBalances.BTC?.holding}`}</span>
-                  <span className="text-accent-green font-medium">
-                    {`Equiv: ${coinToUSD(
+                  <span className="text-accent-green font-medium lg:text-sm text-xs">
+                    {`= ${coinToUSD(
                       prices?.BTC.price,
                       user?.wallet?.cryptoBalances.BTC?.holding
                     )} USD`}
@@ -172,9 +170,8 @@ const Packages = () => {
               >
                 <Typography className="flex flex-row gap-2">
                   <span>Ethereum</span>
-                  <span className="text-gray-400">{`Balance: ${user?.wallet?.cryptoBalances.ETH?.holding}`}</span>
-                  <span className="text-accent-green font-medium">
-                    {`Equiv: ${coinToUSD(
+                  <span className="text-accent-green font-medium lg:text-sm text-xs">
+                    {`= ${coinToUSD(
                       prices?.ETH.price,
                       user?.wallet?.cryptoBalances.ETH?.holding
                     )} USD`}
@@ -187,9 +184,8 @@ const Packages = () => {
               >
                 <Typography className="flex flex-row gap-2">
                   <span>Litecoin</span>
-                  <span className="text-gray-400">{`Balance: ${user?.wallet?.cryptoBalances.LTC?.holding}`}</span>
-                  <span className="text-accent-green font-medium">
-                    {`Equiv: ${coinToUSD(
+                  <span className="text-accent-green font-medium lg:text-sm text-xs">
+                    {`= ${coinToUSD(
                       prices?.LTC.price,
                       user?.wallet?.cryptoBalances.LTC?.holding
                     )} USD`}
@@ -202,9 +198,8 @@ const Packages = () => {
               >
                 <Typography className="flex flex-row gap-2">
                   <span>Tether</span>
-                  <span className="text-gray-400">{`Balance: ${user?.wallet?.cryptoBalances.USDT?.holding}`}</span>
-                  <span className="text-accent-green font-medium">
-                    {`Equiv: ${coinToUSD(
+                  <span className="text-accent-green font-medium lg:text-sm text-xs">
+                    {`= ${coinToUSD(
                       prices?.USDT.price,
                       user?.wallet?.cryptoBalances.USDT?.holding
                     )} USD`}
@@ -217,9 +212,8 @@ const Packages = () => {
               >
                 <Typography className="flex flex-row gap-2">
                   <span>Binance coin</span>
-                  <span className="text-gray-400">{`Balance: ${user?.wallet?.cryptoBalances.BNB?.holding}`}</span>
-                  <span className="text-accent-green font-medium">
-                    {`Equiv: ${coinToUSD(
+                  <span className="text-accent-green font-medium lg:text-sm text-xs">
+                    {`= ${coinToUSD(
                       prices?.BNB.price,
                       user?.wallet?.cryptoBalances.BNB?.holding
                     )} USD`}
@@ -239,6 +233,11 @@ const Packages = () => {
                 value={amount}
                 required
               />
+              {amount && (
+                <p className="text-accent-green font-medium lg:text-sm text-xs">
+                  {`= ${coinToUSD(prices[wallet]?.price, amount)} USD`}
+                </p>
+              )}
               {truthy(amount === "") && (
                 <p className="text-accent-red">Amount cannot be empty</p>
               )}
@@ -340,7 +339,7 @@ const Packages = () => {
               fullWidth
               disabled={duration === null}
               onClick={handlePurchase}
-              className={`w-full px-6 py-3 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform bg-accent-green rounded-lg hover:shadow-sm hover:shadow-accent-green focus:outline-none focus:ring focus:ring-accent-green focus:ring-opacity-50 uppercase mt-6 disabled:hidden ${amount > user.wallet.cryptoBalances[wallet]?.holding?`hidden`:`block`}`}
+              className={`w-full px-6 py-3 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform bg-accent-green rounded-lg hover:shadow-sm hover:shadow-accent-green focus:outline-none focus:ring focus:ring-accent-green focus:ring-opacity-50 uppercase mt-6 disabled:hidden ${amount > user.wallet.cryptoBalances[wallet]?.holding ? `hidden` : `block`}`}
             >
               {`Subscribe to ${product} package`}
             </button>

@@ -61,7 +61,6 @@ const WithdrawalCollapse = (props) => {
           message: error.data.message || "Network response was not ok",
           statusCode: response.status,
         });
-        throw new Error(error.message || "Network response was not ok");
       }
 
       const result = await response.json();

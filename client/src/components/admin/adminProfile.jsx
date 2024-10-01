@@ -31,7 +31,7 @@ export default function Web3Dialog(props) {
           }
         );
         if (!response.ok) {
-          throw new Error(`Error: ${response.status} ${response.message}`);
+          setResponse(response.message);
         }
         const blob = await response.blob();
         const imageUrl = URL.createObjectURL(blob);

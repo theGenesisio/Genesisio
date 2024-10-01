@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 const DepositAddress = (props) => {
   const [address, setAddress] = useState(null);
   const [retry, setRetry] = useState(0);
+  const [copied, setcopied] = useState(false);
 
   useEffect(() => {
     const fetchAddress = async () => {
@@ -36,9 +37,9 @@ const DepositAddress = (props) => {
     e.preventDefault();
     try {
       await navigator.clipboard.writeText(address?.network.address);
-      alert(`${address.network.address} copied to clipboard`);
+      setcopied(true);
     } catch (err) {
-      alert(`${address.network.address} failed to copy to clipboard`);
+      setcopied(false);
     }
   };
 
@@ -77,9 +78,9 @@ const DepositAddress = (props) => {
       <button
         fullWidth
         onClick={copy}
-        className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform bg-transparent rounded-lg uppercase deposit"
+        className={`w-full px-6 py-3 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform  rounded-lg uppercase deposit ${copied ? "bg-accent-green" : "bg-transparent"}`}
       >
-        copy address
+        {copied?"copied":"copy address"}
       </button>
     </div>
   );

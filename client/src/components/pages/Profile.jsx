@@ -75,7 +75,7 @@ const Profile = () => {
           }
         );
         if (!response.ok) {
-          throw new Error(`Error: ${response.status} ${response.message}`);
+          setError(response.message);
         }
         const blob = await response.blob();
         const imageUrl = URL.createObjectURL(blob);
@@ -122,7 +122,6 @@ const Profile = () => {
           message: "Network response was not ok",
           statusCode: 403,
         });
-        throw new Error(`Error: ${response.status} ${response.message}`);
       }
       const data = await response.json();
       setResponse(data);

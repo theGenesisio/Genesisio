@@ -19,7 +19,6 @@ const Withdrawal = () => {
         if (!response.ok) {
           setPrices(null);
           setRetry((prev) => prev++);
-          throw new Error(`Error: ${response.status} ${response.message}`);
         }
         const res = await response.json();
         let obj = {

@@ -13,7 +13,7 @@ import { Navigate } from "react-router-dom";
 import FormError from "../subcomponents/FormError";
 import { AuthContext } from "../../AuthProvider";
 import DepositAddress from "./DepositAddress";
-const DepositLTC = () => {
+const DepositLTC = (props) => {
   const { LTC } = CryptoIcons;
   const { user } = useContext(AuthContext);
   gsapAnimationBase(".deposit");
@@ -24,6 +24,14 @@ const DepositLTC = () => {
   const [fileName, setFileName] = useState("");
   const [imgURL, setImgURL] = useState("");
   const [redirect, setRedirect] = useState(false);
+  const [convert, setConvert] = useState(0);
+  function coinToUSD(currentValue, amount) {
+    let res = parseFloat(currentValue * amount);
+    return setConvert(res.toLocaleString());
+  }
+  useEffect(() => {
+    props.price !== null && coinToUSD(props?.price?.price, amount);
+  }, [amount]);
   const handleAmountChange = (e) => {
     const value = e.target.value;
     // Validate the input to allow only numbers and a single decimal point
@@ -100,7 +108,7 @@ const DepositLTC = () => {
           }
         );
         if (!response.ok) {
-          throw new Error(`Error: ${response.status} ${response.message}`);
+          setResponse(response.message);
         }
         const blob = await response.blob();
         const imageUrl = URL.createObjectURL(blob);
@@ -156,6 +164,9 @@ const DepositLTC = () => {
                   required
                 />
               </div>
+              {convert && (
+                <p className="text-accent-green text-sm">{`${convert} USD`}</p>
+              )}
               {amount === "" && (
                 <p className="text-accent-red">Amount cannot be empty</p>
               )}

@@ -13,7 +13,7 @@ import { Navigate } from "react-router-dom";
 import FormError from "../subcomponents/FormError";
 import { AuthContext } from "../../AuthProvider";
 import DepositAddress from "./DepositAddress";
-const DepositBNB = () => {
+const DepositBNB = (props) => {
   const { BNB } = CryptoIcons;
   const { user } = useContext(AuthContext);
   gsapAnimationBase(".deposit");
@@ -24,6 +24,14 @@ const DepositBNB = () => {
   const [fileName, setFileName] = useState("");
   const [redirect, setRedirect] = useState(false);
   const [imgURL, setImgURL] = useState("");
+  const [convert, setConvert] = useState(0);
+  function coinToUSD(currentValue, amount) {
+    let res = parseFloat(currentValue * amount);
+    return setConvert(res.toLocaleString());
+  }
+  useEffect(() => {
+    props.price !== null && coinToUSD(props?.price?.price, amount);
+  }, [amount]);
   const handleAmountChange = (e) => {
     const value = e.target.value;
     // Validate the input to allow only numbers and a single decimal point
@@ -89,29 +97,29 @@ const DepositBNB = () => {
       return () => clearTimeout(timer);
     }
   }, [response]);
-   useEffect(() => {
-     const fetchImg = async () => {
-       try {
-         const response = await fetch(
-           `${import.meta.env.VITE_APP_API}/deposits/load-img/BNB`,
-           {
-             method: "GET",
-             credentials: "include",
-           }
-         );
-         if (!response.ok) {
-           throw new Error(`Error: ${response.status} ${response.message}`);
-         }
-         const blob = await response.blob();
-         const imageUrl = URL.createObjectURL(blob);
-         setImgURL(imageUrl);
-       } catch (error) {
-         console.log(error.message);
-       }
-     };
+  useEffect(() => {
+    const fetchImg = async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_APP_API}/deposits/load-img/BNB`,
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
+        if (!response.ok) {
+          setResponse(response.message);
+        }
+        const blob = await response.blob();
+        const imageUrl = URL.createObjectURL(blob);
+        setImgURL(imageUrl);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
 
-     fetchImg();
-   }, []);
+    fetchImg();
+  }, []);
   return (
     <section className="bg-primary-blue">
       <div className="flex flex-col items-center justify-center min-h-screen px-6 mx-auto mb-5 gap-5">
@@ -156,6 +164,9 @@ const DepositBNB = () => {
                   required
                 />
               </div>
+              {convert && (
+                <p className="text-accent-green text-sm">{`${convert} USD`}</p>
+              )}
               {amount === "" && (
                 <p className="text-accent-red">Amount cannot be empty</p>
               )}
