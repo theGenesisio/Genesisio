@@ -16,7 +16,7 @@ const MyAssetCard = (props) => {
       <CardBody className="text-white flex flex-row justify-between">
         <div className="flex flex-row justify-start gap-2">
           {CryptoIcons[symbol]}
-          <div className="flex flex-col">
+          <div className="md:flex md:flex-col hidden">
             <Typography className="font-normal lg:text-demiTopic text-md">
               {name}
             </Typography>
