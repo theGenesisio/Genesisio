@@ -37,7 +37,7 @@ Router.route("/deposit/upload/:userId-:walletId-:currency-:email-:timeStamp")
         if (!result) {
             res.status(500).send({ message: 'Internal server error while creating deposit!', statusCode: 500 });
         }
-        res.status(201).send({ message: 'Deposit succesfull, awaiting confirmation!', statusCode: 201 });
+        res.status(201).send({ message: 'Deposit successful, awaiting confirmation!', statusCode: 201 });
     })
 /// ** GET PROFILE SPECIFIC DEPOSITS
 Router.route("/deposits/:userId")

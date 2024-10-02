@@ -38,7 +38,8 @@ const Lorem = {
             symbol: "BNB"
         },
     ],
-    depositPrompt: "Only send assets relevant to this address.Other assets will be lost forever. Upon completing the deposit, kindly upload the payment receipt with nothing less than the exact amount stated above or risk the deposit being flagged as 'FAILED'.",
+    depositPrompt: "Only send assets relevant to this address.Other assets will be lost forever. Only click 'Proceed' upon completing the deposit with nothing less than the exact amount stated above or risk the deposit being flagged as 'FAILED'.",
+    // depositPrompt: "Only send assets relevant to this address.Other assets will be lost forever. Upon completing the deposit, kindly upload the payment receipt with nothing less than the exact amount stated above or risk the deposit being flagged as 'FAILED'.",
     dashboardAlert: "All new users are prompted to make an Initial deposit Into their account to activate it for further transactions or your account remains dormant.Typically, a minimum deposit of $300-500 is required to activate your account, granting you the flexibility to engage in unlimited transactions.Also Note: Activation deposit reflects into your account balance and can be withdrawn during your first withdrawal.",
     dashboardWidget: ["Account Balance", "trading capital", "total deposit", "total withdrawn"],
     adminDashboardWidget: ["Recent Profiles", "Withdrawal Requests", "New Deposits", "Active users"],

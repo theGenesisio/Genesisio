@@ -1,7 +1,9 @@
 import {
   dateIcon,
   dropfileIcon,
+  femaleAvatar,
   locationIcon,
+  maleAvataar,
   phoneIcon,
   ProfileIcon,
   workIcon,
@@ -64,29 +66,29 @@ const Profile = () => {
       console.error("There was a problem with the fetch operation:", error);
     }
   };
-  useEffect(() => {
-    const fetchImg = async () => {
-      try {
-        const response = await fetch(
-          `${import.meta.env.VITE_APP_API}/profiles/img/${user?.email}`,
-          {
-            method: "GET",
-            credentials: "include",
-          }
-        );
-        if (!response.ok) {
-          setError(response.message);
-        }
-        const blob = await response.blob();
-        const imageUrl = URL.createObjectURL(blob);
-        setImgURL(imageUrl);
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchImg = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         `${import.meta.env.VITE_APP_API}/profiles/img/${user?.email}`,
+  //         {
+  //           method: "GET",
+  //           credentials: "include",
+  //         }
+  //       );
+  //       if (!response.ok) {
+  //         setError(response.message);
+  //       }
+  //       const blob = await response.blob();
+  //       const imageUrl = URL.createObjectURL(blob);
+  //       setImgURL(imageUrl);
+  //     } catch (error) {
+  //       console.log(error.message);
+  //     }
+  //   };
 
-    fetchImg();
-  }, []);
+  //   fetchImg();
+  // }, []);
   const {
     control,
     handleSubmit,
@@ -138,19 +140,20 @@ const Profile = () => {
       <div className="flex flex-col min-h-screen mx-auto gap-5 my-10">
         <div className="max-w-5xl mx-auto flex flex-col gap-5">
           <div className="w-full bg-inherit md:flex md:items-center md:justify-between gap-5">
-            {imgURL && (
+            {/* {imgURL && (
               <img
                 className="h-40 w-1/2 rounded-xl object-cover md:h-[30rem] md:w-80 lg:h-[30rem] lg:w-[26rem]"
                 src={imgURL}
                 alt="Profile photo"
               />
-            )}
+            )} */}
+            {user.gender === "female" ? femaleAvatar : maleAvataar}
             <div className="flex flex-col gap-5">
               <h1 className="font-bold text-topic text-white">
                 {user.fullname}
               </h1>
               <p className="text-white font-normal">{user.email}</p>
-              <div className="flex flex-row justify-between p-3 bg-inherit border border-secondary-blue rounded-lg text-white">
+              {/* <div className="flex flex-row justify-between p-3 bg-inherit border border-secondary-blue rounded-lg text-white">
                 {dropfileIcon}
                 <input
                   name="file"
@@ -161,7 +164,7 @@ const Profile = () => {
                   onChange={handleFileChange}
                 />
                 <h2 className="capitalize md:hidden lg:block">Upload photo</h2>
-              </div>
+              </div> */}
               <button
                 type="submit"
                 onClick={updateProfile}

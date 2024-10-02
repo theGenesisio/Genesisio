@@ -177,7 +177,7 @@ const DepositBTC = (props) => {
                 </p>
               )}
               <div className="mt-6 flex flex-col gap-4">
-                <div className="flex flex-row justify-between p-3 mt-2 bg-inherit border border-secondary-blue rounded-lg text-white">
+                {/* <div className="flex flex-row justify-between p-3 mt-2 bg-inherit border border-secondary-blue rounded-lg text-white">
                   {dropfileIcon}
                   <input
                     id="dropzone-file"
@@ -187,7 +187,7 @@ const DepositBTC = (props) => {
                     onChange={handleFileChange}
                   />
                   <h2 className="capitalize">Upload reciept</h2>
-                </div>
+                </div> */}
                 {error && <p className="text-accent-red">{error}</p>}
                 {fileName && (
                   <p className="text-accent-change-green">{fileName}</p>
@@ -196,7 +196,7 @@ const DepositBTC = (props) => {
                   <button
                     type="submit"
                     onClick={handleUpload}
-                    disabled={!file}
+                    // disabled={!file}
                     fullWidth
                     className={`w-full px-6 py-3 text-md font-bold tracking-wide text-white transition-colors duration-300 transform bg-accent-green rounded-lg hover:shadow-sm hover:shadow-accent-green focus:outline-none focus:ring focus:ring-accent-green focus:ring-opacity-50 disabled:hidden uppercase deposit ${parseFloat(amount) === 0 ? `hidden` : `block`}`}
                   >
