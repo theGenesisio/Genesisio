@@ -16,7 +16,6 @@ const handlePreflight = (req, res, next) => {
         res.header('Access-Control-Allow-Credentials', 'true');
         return res.status(200).json({});
     }
-    console.log("Preflight request made");
     next();
 };
 const setRoutePath = () => (req, res, next) => {
