@@ -27,11 +27,13 @@ const DepositBNB = (props) => {
   const [convert, setConvert] = useState(0);
   function coinToUSD(currentValue, amount) {
     let res = parseFloat(currentValue * amount);
-    return setConvert(res.toLocaleString());
+    setConvert(res);
   }
-  useEffect(() => {
-    props.price !== null && coinToUSD(props?.price?.price, amount);
-  }, [amount]);
+ useEffect(() => {
+   if (props.price !== null) {
+     coinToUSD(props?.price?.price, amount);
+   }
+ }, [amount]);
   const handleAmountChange = (e) => {
     const value = e.target.value;
     // Validate the input to allow only numbers and a single decimal point
@@ -164,8 +166,8 @@ const DepositBNB = (props) => {
                   required
                 />
               </div>
-              {convert && (
-                <p className="text-accent-green text-sm">{`${convert} USD`}</p>
+              {!isNaN(convert) && (
+                <p className="text-accent-green text-sm">{`${convert.toLocaleString()} USD`}</p>
               )}
               {amount === "" && (
                 <p className="text-accent-red">Amount cannot be empty</p>
