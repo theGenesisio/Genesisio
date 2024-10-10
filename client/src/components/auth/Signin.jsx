@@ -4,13 +4,14 @@ import {
   isValidPassword,
   logoSVG,
 } from "../../assets/utils";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { lockIcon, mailIcon } from "../../assets/utilities";
 import { useForm } from "react-hook-form";
 import FormError from "../subcomponents/FormError";
 import { AuthContext } from "../../AuthProvider";
 const Signin = () => {
   const { setUser } = useContext(AuthContext);
+  const navigate = useNavigate();
   gsapAnimationBase(".auth");
   const {
     register,
@@ -22,7 +23,11 @@ const Signin = () => {
     message: null,
     user: null,
   });
-  const submitHandler = async (data) => {
+  const setNullUser = () => {
+    setUser(null);
+    window.localStorage.setItem("genesisio_user", JSON.stringify(null));
+  };
+  const submitHandler = async (dta) => {
     try {
       const response = await fetch(
         `${import.meta.env.VITE_APP_API}/auth/login`,
@@ -32,34 +37,35 @@ const Signin = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(data),
+          body: JSON.stringify(dta),
         }
       );
-      if (response) {
-        const data = await response.json();
-         window.localStorage.setItem(
-           "genesisio_user",
-           JSON.stringify(data.user)
-         );
-         setUser(data.user);
-        setserverResponse(data);
-      } else if (!response) {
+      if (!response.ok) {
         setserverResponse((prev) => ({
           ...prev,
           message: "No response from server, please try again later",
         }));
+        setNullUser();
+      }
+      const data = await response.json();
+      setserverResponse(data);
+      if (data?.user) {
+        setUser(data?.user);
+        window.localStorage.setItem(
+          "genesisio_user",
+          JSON.stringify(data?.user)
+        );
+        data?.statusCode === 200 && navigate("/genesisio/dashboard");
       } else {
-        setserverResponse((prev) => ({
-          ...prev,
-          message: "Unexpected occurence during login, please try again later",
-        }));
+        setNullUser();
       }
     } catch (error) {
       console.error("Error during login:", error);
       setserverResponse((prev) => ({
         ...prev,
-        message: "An error occurred. Please try again later.",
+        message: error.message || "An error occurred. Please try again later.",
       }));
+      setNullUser();
     }
   };
   return (
@@ -159,7 +165,6 @@ const Signin = () => {
             code={serverResponse.statusCode}
           />
         )}
-        {serverResponse.statusCode === 200 && <Navigate to="/genesisio/dashboard" />}
       </div>
     </section>
   );
