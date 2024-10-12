@@ -51,6 +51,7 @@ const Signin = () => {
       setserverResponse(data);
       if (data?.user) {
         setUser(data?.user);
+        window.localStorage.setItem("IsSessionValid", JSON.stringify(true));
         window.localStorage.setItem(
           "genesisio_user",
           JSON.stringify(data?.user)
