@@ -144,7 +144,7 @@ const adminWithdrawals = () => {
                         </td>
                         <td className={classes}>
                           <Typography className="font-bold text-white">
-                            {parseFloat(amount).toLocaleString()}
+                            {parseFloat(amount).toFixed(7)}
                           </Typography>
                         </td>
                         <td className={classes}>

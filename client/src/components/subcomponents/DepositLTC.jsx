@@ -2,9 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { Typography } from "@material-tailwind/react";
 import {
   CryptoIcons,
-  dropfileIcon,
   infoIcon,
-  lockIcon,
+  dollarIcon,
   QRCode,
 } from "../../assets/utilities";
 import Lorem from "../../assets/constants";
@@ -17,16 +16,16 @@ const DepositLTC = (props) => {
   const { LTC } = CryptoIcons;
   const { user } = useContext(AuthContext);
   gsapAnimationBase(".deposit");
-  const [amount, setAmount] = useState(0);
   const [file, setFile] = useState(null);
   const [response, setResponse] = useState({});
   const [error, setError] = useState("");
   const [fileName, setFileName] = useState("");
   const [imgURL, setImgURL] = useState("");
   const [redirect, setRedirect] = useState(false);
+  const [amount, setAmount] = useState(0);
   const [convert, setConvert] = useState(0);
   function coinToUSD(currentValue, amount) {
-    let res = parseFloat(currentValue * amount);
+    let res = parseFloat(amount / currentValue);
     setConvert(res);
   }
   useEffect(() => {
@@ -64,7 +63,7 @@ const DepositLTC = (props) => {
   const handleUpload = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("amount", amount);
+    formData.append("amount", convert);
     formData.append("file", file);
     try {
       const response = await fetch(
@@ -154,20 +153,22 @@ const DepositLTC = (props) => {
             <div className="lg:h-auto w-full">
               <DepositAddress network="LTC" />
               <div className="relative flex items-center mt-4 auth">
-                <span className="absolute mx-3 text-gray-400">{lockIcon}</span>
+                <span className="absolute mx-3 text-gray-400">
+                  {dollarIcon}
+                </span>
 
                 <input
                   type="text"
                   className="block w-full"
                   name="amount"
-                  placeholder="0.00"
+                  placeholder="0.00 USD"
                   onChange={handleAmountChange}
                   value={amount}
                   required
                 />
               </div>
               {!isNaN(convert) && (
-                <p className="text-accent-green text-sm">{`${convert.toLocaleString()} USD`}</p>
+                <p className="text-accent-green text-xs">{`${convert.toFixed(7)} LTC`}</p>
               )}
               {amount === "" && (
                 <p className="text-accent-red">Amount cannot be empty</p>

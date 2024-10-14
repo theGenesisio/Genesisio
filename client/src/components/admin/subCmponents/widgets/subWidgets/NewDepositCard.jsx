@@ -77,7 +77,7 @@ const NewDepositCard = (props) => {
             {status}
           </Typography>
           <Typography variant="h1" className="m-1">
-            {amount?.toLocaleString()}
+            {amount?.toFixed(5)}
           </Typography>
           <Typography className="font-normal">{id}</Typography>
           <Typography variant="small" className="">

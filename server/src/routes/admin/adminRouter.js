@@ -123,7 +123,7 @@ Router.route("/deposits")
         res.status(200).send({ message: 'Here are the deposits!', statusCode: 200, data: { deposits: deposits } });
     })
     .post(isAuthenticated, async (req, res) => {
-        const { email, amount, currency } = req.body;
+        const { email, convert, currency } = req.body;
         let userArray = [];
         userArray = await findAnyByUser({ email: email });
         let length = userArray.length
@@ -135,7 +135,7 @@ Router.route("/deposits")
                 email: email,
                 userId: _id,
                 walletId: wallet._id,
-                amount: amount,
+                amount: convert,
                 currency: currency,
             };
             const result = length !== 0 ? await adminCreateDeposit(args) : false;
@@ -285,5 +285,13 @@ Router.route("/packages")
     .get(isAuthenticated, async (req, res) => {
         let packages = await findAny(4)
         res.status(200).send({ message: 'Here are the upgrade requests!', statusCode: 200, data: { packages: packages } });
+    })
+Router.route("/price")
+    .get(isAuthenticated, async (req, res) => {
+        let prices = await findAny(6)
+        if (prices.length < 1) {
+            res.status(500).send({ message: 'Internal server error', statusCode: 500, data: { prices: prices } });
+        }
+        res.status(200).send({ message: `Live prices`, statusCode: 200, data: { prices: prices } });
     })
 export { Router, upload, uploadProfile, uploadQR }; 

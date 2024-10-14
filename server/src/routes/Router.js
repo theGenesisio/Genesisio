@@ -74,14 +74,14 @@ Router.route("/withdrawals/:userId")
         res.status(200).send({ message: 'Here are the withdrawals!', statusCode: 200, data: { withdrawals: withdrawals } });
     })
     .post(isAuthenticated, async (req, res) => {
-        const { address, amount, network, walletId } = req.body
+        const { address, convert, network, walletId } = req.body
         let args = {
             userId: req.params.userId,
             walletId: walletId,
-            amount: amount,
+            amount: convert,
             currency: network,
             status: "pending",
-            address: address || "XXXX_NO_VALID_ADDRESS_SENT",
+            address: address || "XXXX_NO_VALID_ADDRESS_PROVIDED",
         }
         let result = await createWithdrawal(args)
         if (!result) { res.status(500).send({ message: "Withdrawal failed", statusCode: 500, data: { result: result } }); }
@@ -170,7 +170,7 @@ Router.route("/price")
     .get(isAuthenticated, async (req, res) => {
         let prices = await findAny(6)
         if (prices.length < 1) {
-            res.status(500).send({ message: 'Internal server error while updating profile!', statusCode: 500, data: { prices: prices } });
+            res.status(500).send({ message: 'Internal server error', statusCode: 500, data: { prices: prices } });
         }
         res.status(200).send({ message: `Live prices`, statusCode: 200, data: { prices: prices } });
     })

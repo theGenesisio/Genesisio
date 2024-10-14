@@ -41,7 +41,7 @@ export default function InvestmentTable() {
 
   const memoizedDeposits = useMemo(() => {
     fetchData().then((data) => setInvestments(data.reverse()));
-  }, [user._id, retry]);
+  }, [user?._id, retry]);
 
   useEffect(() => {
     memoizedDeposits;

@@ -43,7 +43,7 @@ export default function DepositTable() {
 
   const memoizedDeposits = useMemo(() => {
     fetchData().then((data) => setDeposits(data.reverse()));
-  }, [user._id, retry]);
+  }, [user?._id, retry]);
 
   useEffect(() => {
     memoizedDeposits;
@@ -115,7 +115,7 @@ export default function DepositTable() {
                         </td>
                         <td className={classes}>
                           <Typography className="font-bold text-white">
-                            {parseFloat(amount).toLocaleString()}
+                            {parseFloat(amount).toFixed(7)}
                           </Typography>
                         </td>
                         <td className={classes}>

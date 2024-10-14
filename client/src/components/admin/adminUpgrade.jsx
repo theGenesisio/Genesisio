@@ -107,7 +107,7 @@ const adminUpgrade = () => {
               ></textarea>
             </div>
             {instruction === "" && (
-              <p className="text-accent-red">Add content for custion mail</p>
+              <p className="text-accent-red">Add content for custom mail</p>
             )}
           </div>
           <Select

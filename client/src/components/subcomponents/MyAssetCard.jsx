@@ -9,7 +9,7 @@ const MyAssetCard = (props) => {
   const { price, percent_change_24h, symbol } = data;
   let change = parseFloat(percent_change_24h);
   function coinToUSD(currentValue, amount) {
-    return parseFloat(currentValue * amount).toLocaleString();
+    return parseFloat(currentValue * amount).toFixed(5);
   }
   return (
     <Card className="sm:w-full  bg-inherit border border-secondary-blue p-0 shadow-sm shadow-secondary-blue withdraw">
@@ -40,7 +40,7 @@ const MyAssetCard = (props) => {
             {`$${coinToUSD(user?.wallet?.cryptoBalances[symbol]?.holding, price)}`}
           </Typography>
           <Typography className="font-medium lg:text-sm text-gray-400 text-xs">
-            {user?.wallet?.cryptoBalances[symbol]?.holding.toPrecision(5)}
+            {user?.wallet?.cryptoBalances[symbol]?.holding.toFixed(7)}
           </Typography>
         </div>
       </CardBody>

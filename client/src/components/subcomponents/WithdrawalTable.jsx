@@ -41,7 +41,7 @@ export default function WithdrawalTable() {
   };
   const memoizedDeposits = useMemo(() => {
     fetchData().then((data) => setWithdrawals(data.reverse()));
-  }, [user._id, retry]);
+  }, [user?._id, retry]);
 
   useEffect(() => {
     memoizedDeposits;
@@ -125,7 +125,7 @@ export default function WithdrawalTable() {
                       </td>
                       <td className={classes}>
                         <Typography className="font-bold text-white">
-                          {parseFloat(amount).toLocaleString()}
+                          {parseFloat(amount).toFixed(7)}
                         </Typography>
                       </td>
                       <td className={classes}>

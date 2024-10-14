@@ -6,7 +6,7 @@ const WithdrawalCard = (props) => {
   const { name, symbol, bal, prices } = props;
   function coinToUSD(currentValue, amount) {
     let res = parseFloat(currentValue * amount);
-    return res.toLocaleString();
+    return res.toFixed(7);
   }
   return (
     <Card className="sm:w-full  bg-inherit border border-secondary-blue p-0 shadow-sm shadow-secondary-blue withdraw">
@@ -25,7 +25,7 @@ const WithdrawalCard = (props) => {
             {parseFloat(bal.holding).toFixed(7)}
           </Typography>
           {prices !== null && (
-            <Typography className="font-normal text-sm text-accent-green">{`${coinToUSD(prices[symbol]?.price, bal.holding)}USD`}</Typography>
+            <Typography className="font-normal text-xs text-accent-green">{`${coinToUSD(prices[symbol]?.price, bal.holding)} USD`}</Typography>
           )}
           {prices === null && (
             <Typography className="font-normal text-sm text-accent-green">Converting...</Typography>

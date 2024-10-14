@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { gsapAnimationScrollTrigger } from "../../assets/utils";
 import AdminDeposit from "./adminDeposit";
 import Lorem from "../../assets/constants";
 import {
@@ -144,7 +143,7 @@ const adminDeposits = () => {
                         </td>
                         <td className={classes}>
                           <Typography className="font-bold text-white">
-                            {parseFloat(amount).toLocaleString()}
+                            {parseFloat(amount).toFixed(7)}
                           </Typography>
                         </td>
                         <td className={classes}>

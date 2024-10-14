@@ -6,20 +6,21 @@ import { Navigate } from "react-router-dom";
 const WithdrawalCollapse = (props) => {
   const { user } = useContext(AuthContext);
   const [network, setNetwork] = useState(props.network);
-  const [amount, setAmount] = useState("");
   const [address, setAddress] = useState("");
   const [error, setError] = useState({});
   const [redirect, setRedirect] = useState(false);
+  const [amount, setAmount] = useState("");
   const [convert, setConvert] = useState(0);
-  function coinToUSD(currentValue, amount) {
-    let res = parseFloat(currentValue * amount);
-    return setConvert(res.toLocaleString());
+  function coinToUSD(currency, amount) {
+    let res;
+    res = parseFloat(amount / props?.prices?.[currency].price);
+    setConvert(res);
   }
   useEffect(() => {
     setNetwork(props.network);
   }, [props.network]);
   useEffect(() => {
-    network !== null && coinToUSD(props?.prices[network]?.price, amount);
+    network !== null && coinToUSD(network, amount);
   }, [amount, network]);
 
   const handleAmountChange = (e) => {
@@ -48,7 +49,7 @@ const WithdrawalCollapse = (props) => {
           },
           body: JSON.stringify({
             address,
-            amount,
+            convert,
             network,
             walletId: user.wallet._id,
           }),
@@ -117,7 +118,7 @@ const WithdrawalCollapse = (props) => {
       return (
         <Collapse open={network ? true : false} className="flex flex-col gap-2">
           {network !== null && (
-            <p className="text-accent-green text-sm">{`${convert} USD`}</p>
+            <p className="text-accent-green text-sm">{`${convert.toFixed(7)} ${network}`}</p>
           )}
           <input
             type="text"
@@ -131,7 +132,7 @@ const WithdrawalCollapse = (props) => {
           {truthy(amount === "") && (
             <p className="text-accent-red">Amount cannot be empty</p>
           )}
-          {truthy(amount > user?.wallet?.cryptoBalances[network]?.holding) && (
+          {truthy(convert > user?.wallet?.cryptoBalances[network]?.holding) && (
             <p className="text-accent-red">{`Can not exceed maximum ${network} balance`}</p>
           )}
           {truthy(parseFloat(amount) == 0) && (
@@ -155,7 +156,7 @@ const WithdrawalCollapse = (props) => {
             disabled={truthy(parseFloat(amount) === 0)}
             onClick={handleWithdrawal}
             className={`w-full px-6 py-3 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform bg-accent-green rounded-lg hover:shadow-sm hover:shadow-accent-green focus:outline-none focus:ring focus:ring-accent-green focus:ring-opacity-50 uppercase mt-6 disabled:hidden ${truthy(address === "") ? `hidden` : `block`} ${
-              parseFloat(amount) >
+              parseFloat(convert) >
                 user?.wallet?.cryptoBalances[network]?.holding && `hidden`
             }`}
           >

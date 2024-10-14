@@ -1,12 +1,57 @@
 import { Option, Select } from "@material-tailwind/react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { lockIcon, pasteIcon } from "../../../../../assets/utilities";
 import FormError from "../../../../subcomponents/FormError";
 const AdminNewDeposit = () => {
   const [currency, setCurrency] = useState(null);
   const [error, setError] = useState(null);
+  const [convert, setConvert] = useState(0);
   const [amount, setAmount] = useState("");
+  const [prices, setPrices] = useState(null);
+  const [retry, setRetry] = useState(0);
   const [email, setEmail] = useState("");
+  function coinToUSD(currency, amount) {
+    let res;
+    res = parseFloat(amount / prices?.[currency].price);
+    setConvert(res);
+  }
+  useEffect(() => {
+    if (prices !== null && currency !== null) {
+      coinToUSD(currency, amount);
+    }
+  }, [amount, currency]);
+  useEffect(() => {
+    const fetchPrice = async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_APP_API_ADMIN}/price`,
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
+        if (!response.ok) {
+          setPrices(null);
+          setRetry((prev) => prev++);
+        }
+        const res = await response.json();
+        let obj = {
+          BTC: res.data.prices.find((price) => price.id === 1),
+          ETH: res.data.prices.find((price) => price.id === 1027),
+          LTC: res.data.prices.find((price) => price.id === 2),
+          USDT: res.data.prices.find((price) => price.id === 825),
+          BNB: res.data.prices.find((price) => price.id === 1839),
+        };
+        res && setPrices(obj);
+      } catch (error) {
+        setPrices(null);
+        setRetry((prev) => prev++);
+        console.log(error);
+      }
+    };
+
+    fetchPrice();
+  }, [retry]);
   const handleAmountChange = (e) => {
     const value = e.target.value;
     if (/^\d*\.?\d*$/.test(value)) {
@@ -20,7 +65,7 @@ const AdminNewDeposit = () => {
     setEmail(value);
   };
   const paste = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
       const text = await navigator.clipboard.readText();
       setEmail(text);
@@ -41,7 +86,7 @@ const AdminNewDeposit = () => {
           },
           body: JSON.stringify({
             currency,
-            amount,
+            convert,
             email,
           }),
         }
@@ -144,6 +189,9 @@ const AdminNewDeposit = () => {
             required
           />
         </div>
+        {!isNaN(convert) && (
+          <p className="text-accent-green text-xs">{`${convert.toFixed(7)} ${currency !== null ? currency : ""}`}</p>
+        )}
         {amount === "" && (
           <p className="text-accent-red">Amount cannot be empty</p>
         )}

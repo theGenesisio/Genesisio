@@ -89,7 +89,7 @@ export default function Web3Dialog(props) {
         <DialogBody>
           <Card className="w-full shadow-lg bg-primary-blue">
             <CardHeader floated={false} color="blue-gray">
-             {imgURL && <img src={imgURL}/>}
+              {imgURL && <img src={imgURL} />}
               <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-tr from-transparent via-transparent to-black/60 " />
             </CardHeader>
             <CardBody>
@@ -174,7 +174,7 @@ export default function Web3Dialog(props) {
                   variant="h6"
                   className="flex items-center gap-1.5 font-normal text-white"
                 >
-                  {wallet.cryptoBalances.BTC?.holding}
+                  {wallet.cryptoBalances.BTC?.holding.toFixed(5)}
                 </Typography>
               </div>
               <div className="mb-3 flex items-center justify-between">
@@ -188,7 +188,7 @@ export default function Web3Dialog(props) {
                   variant="h6"
                   className="flex items-center gap-1.5 font-normal text-white"
                 >
-                  {wallet.cryptoBalances.ETH?.holding}
+                  {wallet.cryptoBalances.ETH?.holding.toFixed(5)}
                 </Typography>
               </div>
               <div className="mb-3 flex items-center justify-between">
@@ -202,7 +202,7 @@ export default function Web3Dialog(props) {
                   variant="h6"
                   className="flex items-center gap-1.5 font-normal text-white"
                 >
-                  {wallet.cryptoBalances.LTC?.holding}
+                  {wallet.cryptoBalances.LTC?.holding.toFixed(5)}
                 </Typography>
               </div>
               <div className="mb-3 flex items-center justify-between">
@@ -216,7 +216,7 @@ export default function Web3Dialog(props) {
                   variant="h6"
                   className="flex items-center gap-1.5 font-normal text-white"
                 >
-                  {wallet.cryptoBalances.USDT?.holding}
+                  {wallet.cryptoBalances.USDT?.holding.toFixed(5)}
                 </Typography>
               </div>
               <div className="mb-3 flex items-center justify-between">
@@ -230,7 +230,7 @@ export default function Web3Dialog(props) {
                   variant="h6"
                   className="flex items-center gap-1.5 font-normal text-white"
                 >
-                  {wallet.cryptoBalances.BNB?.holding}
+                  {wallet.cryptoBalances.BNB?.holding.toFixed(5)}
                 </Typography>
               </div>
               <Select

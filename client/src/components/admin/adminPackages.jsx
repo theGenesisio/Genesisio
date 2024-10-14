@@ -127,7 +127,7 @@ const adminPackages = () => {
                           </td>
                           <td className={classes}>
                             <Typography className="font-bold text-white">
-                              {amount}
+                              {amount.toFixed(7)}
                             </Typography>
                           </td>
                           <td className={classes}>
