@@ -46,22 +46,22 @@ const adminDashboard = () => {
     >
       <p className="font-normal text-white text-demiTopic">Welcome,</p>
       <h1 className="text-white text-start text-topic font-semibold mb-5 dash">
-        {admin?.username ? ` ${admin?.username}` : `Marsielle`}
+        {admin?.username ? ` ${admin?.username}` : `Marseille`}
       </h1>
       <div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-5">
         {data?.NewDeposits && (
           <NewDeposits name={adminDashboardWidget[2]} data={data.NewDeposits} />
         )}
-        {data.WithdrawalRequests && (
+        {data?.WithdrawalRequests && (
           <WithdrawalRequests
             name={adminDashboardWidget[1]}
             data={data.WithdrawalRequests}
           />
         )}
-        {data.profiles && (
+        {data?.profiles && (
           <RecentProfiles name={adminDashboardWidget[0]} data={data.profiles} />
         )}
-        {data.ActiveUsers && (
+        {data?.ActiveUsers && (
           <ActiveUsers name={adminDashboardWidget[3]} data={data.ActiveUsers} />
         )}
       </div>

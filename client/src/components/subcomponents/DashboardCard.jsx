@@ -1,16 +1,11 @@
-import {
-  Card,
-  CardBody,
-  CardFooter,
-  Typography,
-} from "@material-tailwind/react";
+import { Card, CardBody, Typography } from "@material-tailwind/react";
 import { AuthContext } from "../../AuthProvider";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 
 export default function DashboardCard(props) {
   const { user } = useContext(AuthContext);
   const { accountBalance, tradingCapital, totalDeposit, totalWithdrawn } =
-    user.wallet.balances;
+    user?.wallet.balances;
   let widgetData = {
     name: props.widgetName,
   };
@@ -43,8 +38,8 @@ export default function DashboardCard(props) {
     default:
       widgetData = {
         ...widgetData,
-        amount: 0.00,
-        change: 0.00, // calc something here
+        amount: 0.0,
+        change: 0.0, // calc something here
         affinity: true, // if result of change is +ve
       };
       break;

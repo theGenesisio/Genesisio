@@ -4,14 +4,14 @@ import {
   isValidPassword,
   logoSVG,
 } from "../../assets/utils";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { lockIcon, usericon } from "../../assets/utilities";
 import { useForm } from "react-hook-form";
 import FormError from "../subcomponents/FormError";
-import { AuthContext } from "../../AuthProvider";
 import { AdminContext } from "./subCmponents/AdminContext";
 const Signin = () => {
   const { setAdmin } = useContext(AdminContext);
+  const navigate = useNavigate();
   gsapAnimationBase(".auth");
   const {
     register,
@@ -23,6 +23,10 @@ const Signin = () => {
     message: null,
     admin: null,
   });
+  const setNullAdmin = () => {
+    setUser(null);
+    window.localStorage.setItem("genesisioStoredAdmin", JSON.stringify(null));
+  };
   const submitHandler = async (data) => {
     const payload = {
       username: data.username,
@@ -40,27 +44,33 @@ const Signin = () => {
           body: JSON.stringify(payload),
         }
       );
-      if (response) {
-        const data = await response.json();
-        setAdmin(data?.admin);
-        setserverResponse(data);
-      } else if (!response) {
+      if (!response.ok) {
         setserverResponse((prev) => ({
           ...prev,
           message: "No response from server, please try again later",
         }));
+        setNullAdmin();
+      }
+      const data = await response.json();
+      setserverResponse(data);
+      if (data?.admin) {
+        setAdmin(data?.admin);
+        window.localStorage.setItem("adminSession", JSON.stringify(true));
+        window.localStorage.setItem(
+          "genesisioStoredAdmin",
+          JSON.stringify(data?.admin)
+        );
+        data?.statusCode === 200 && navigate("/admin/dashboard");
       } else {
-        setserverResponse((prev) => ({
-          ...prev,
-          message: "Unexpected occurence during login, please try again later",
-        }));
+        setNullAdmin();
       }
     } catch (error) {
       console.error("Error during login:", error);
       setserverResponse((prev) => ({
         ...prev,
-        message: "An error occurred. Please try again later.",
+        message: error.message || "An error occurred. Please try again later.",
       }));
+      setNullAdmin();
     }
   };
   return (

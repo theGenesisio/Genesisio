@@ -12,6 +12,10 @@ const Logout = () => {
     handleSubmit,
     formState: { isSubmitting },
   } = useForm();
+   const setNullUser = () => {
+     window.localStorage.setItem("IsSessionValid", JSON.stringify(false));
+     window.localStorage.removeItem("genesisio_user");
+   };
   async function handleLogout() {
     try {
       const response = await fetch(
@@ -24,16 +28,20 @@ const Logout = () => {
       if (response) {
         const data = await response.json();
         setserverResponse(data);
+        setNullUser()
       } else if (!response) {
         setserverResponse({
           message: "No response from server, please try again later",
         });
+        setNullUser();
       } else {
         setserverResponse({
           message: "Unexpected occurence during logout, please try again later",
         });
+        setNullUser();
       }
     } catch (error) {
+      setNullUser();
       console.error("Error during logout:", error);
       setserverResponse({
         message: "An error occurred. Please try again later.",

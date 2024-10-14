@@ -44,6 +44,10 @@ export default function NavbarMain() {
       })}
     </ul>
   );
+  const setNullAdmin = () => {
+    window.localStorage.setItem("adminSession", JSON.stringify(false));
+    window.localStorage.removeItem("genesisioStoredAdmin");
+  };
   const handleLogout = async () => {
     try {
       const response = await fetch(
@@ -56,16 +60,20 @@ export default function NavbarMain() {
       if (response) {
         const data = await response.json();
         setserverResponse(data);
+        setNullAdmin();
       } else if (!response) {
         setserverResponse({
           message: "No response from server, please try again later",
         });
+        setNullAdmin();
       } else {
         setserverResponse({
           message: "Unexpected occurence during logout, please try again later",
         });
+        setNullAdmin();
       }
     } catch (err) {
+      setNullAdmin();
       console.error("Error during logout:", error);
       setserverResponse({
         message: "An error occurred. Please try again later.",
@@ -142,11 +150,15 @@ export default function NavbarMain() {
         <div className="container mx-auto pt-5">
           {navList}
           <div className="flex items-center gap-x-1 pb-1 justify-center">
-            <Link to="/auth/logout" className="w-1/2">
-              <Button fullWidth variant="text" size="sm" className="text-white">
-                logout
-              </Button>
-            </Link>
+            <Button
+              fullWidth
+              variant="text"
+              size="sm"
+              className="text-white"
+              onClick={handleLogout}
+            >
+              Logout
+            </Button>
           </div>
         </div>
       </Collapse>

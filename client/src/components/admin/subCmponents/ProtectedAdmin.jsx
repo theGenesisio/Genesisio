@@ -1,46 +1,32 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
-import { AdminContext } from "./AdminContext";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children }) => {
-  const { admin, setAdmin } = useContext(AdminContext);
-  const storedSessionValid = JSON.parse(
-    window.localStorage.getItem("adminSession")
-  );
-  useEffect(() => {
-    const authChecker = async () => {
-      const response = await fetch(
-        `${import.meta.env.VITE_APP_API_ADMIN}/auth/check-session`,
-        {
-          method: "GET",
-          credentials: "include",
-        }
+  const navigate = useNavigate();
+  const admin = () => {
+    try {
+      return (
+        JSON.parse(window.localStorage.getItem("genesisioStoredAdmin")) || null
       );
-      const data = await response.json();
-      if (data.statusCode === 200) {
-        window.localStorage.setItem("adminSession", JSON.stringify(true));
-        window.localStorage.setItem(
-          "genesisioStoredAdmin",
-          JSON.stringify(data.admin)
-        );
-        setAdmin(data.user);
-      } else if (data.statusCode === 204) {
-        console.log("client attempted");
-      } else if (data.statusCode === 401) {
-        window.localStorage.setItem("adminSession", JSON.stringify(false));
-        window.localStorage.removeItem("genesisioStoredAdmin");
-        setAdmin(null);
-      }
-    };
+    } catch (error) {
+      console.error("Error reading local storage", error);
+      return null;
+    }
+  };
+  const storedSessionValid = () => {
+    try {
+      return JSON.parse(window.localStorage.getItem("adminSession"));
+    } catch (error) {
+      console.error("Error reading local storage", error);
+      return false;
+    }
+  };
 
-    authChecker(); // Initial session check
-    const intervalId = setInterval(authChecker, 60 * 60 * 1000); // Check every hour
-
-    return () => clearInterval(intervalId); // Clear interval on component unmount
-  }, []);
-  if (admin === null || !storedSessionValid) {
-    return <Navigate to="/admin/auth/sign-in" />;
-  }
+  useEffect(() => {
+    if (!admin() || !storedSessionValid()) {
+      navigate("/admin/auth/sign-in");
+    }
+  }, [storedSessionValid, admin]);
   return children;
 };
 export default ProtectedRoute;
