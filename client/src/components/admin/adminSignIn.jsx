@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   gsapAnimationBase,
   isValidPassword,
@@ -10,8 +10,25 @@ import { useForm } from "react-hook-form";
 import FormError from "../subcomponents/FormError";
 import { AdminContext } from "./subCmponents/AdminContext";
 const Signin = () => {
-  const { setAdmin } = useContext(AdminContext);
+  const { admin, setAdmin } = useContext(AdminContext);
   const navigate = useNavigate();
+  const storedAdmin = () => {
+    try {
+      return (
+        JSON.parse(window.localStorage.getItem("genesisioStoredAdmin")) ||
+        admin ||
+        null
+      );
+    } catch (error) {
+      console.error("Error reading admin from local storage", error);
+      return null;
+    }
+  };
+  useEffect(() => {
+    if (storedAdmin()) {
+      navigate("/admin/dashboard");
+    }
+  }, [storedAdmin,admin]);
   gsapAnimationBase(".auth");
   const {
     register,
@@ -24,7 +41,7 @@ const Signin = () => {
     admin: null,
   });
   const setNullAdmin = () => {
-    setUser(null);
+    setAdmin(null);
     window.localStorage.setItem("genesisioStoredAdmin", JSON.stringify(null));
   };
   const submitHandler = async (data) => {
@@ -143,9 +160,6 @@ const Signin = () => {
             err={serverResponse.message}
             code={serverResponse.statusCode}
           />
-        )}
-        {serverResponse.statusCode === 200 && (
-          <Navigate to="/admin/dashboard" />
         )}
       </div>
     </section>

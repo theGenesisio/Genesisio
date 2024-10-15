@@ -2,7 +2,7 @@ import passport from "passport"
 import { Router as _Router } from "express";
 import "./localStrategy.js"
 import { completeRegistration, isAuthenticated, otpStore, verifyOTP, onBoardingEmail, requestOTPForReset } from "./middleware.js";
-import { dbCreateProfile, updateActiveState, updateProfile, updateProfilePassword } from "../../mongodb/methods.js";
+import { dbCreateProfile, updateActiveState, updateProfilePassword } from "../../mongodb/methods.js";
 const Router = _Router();
 // LOGIN 
 Router.route('/login')

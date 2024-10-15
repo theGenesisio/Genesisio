@@ -93,7 +93,7 @@ export default function NavbarHome() {
               Sign up
             </Button>
           </Link>
-          <Typography
+          {/* <Typography
             as="li"
             variant="small"
             className="flex items-center gap-x-2 p-1 transition-colors duration-300 hover:text-accent-green"
@@ -104,7 +104,7 @@ export default function NavbarHome() {
             >
               <UserCircleIcon className="h-10" />
             </Link>
-          </Typography>
+          </Typography> */}
         </div>
         <IconButton
           variant="text"
@@ -147,7 +147,7 @@ export default function NavbarHome() {
       </div>
       <Collapse open={openNav}>
         <div className="container mx-auto pt-5">
-          <Typography
+          {/* <Typography
             as="li"
             variant="small"
             className="flex items-center gap-x-2 p-1 transition-colors duration-300 hover:text-accent-green"
@@ -159,7 +159,7 @@ export default function NavbarHome() {
             >
               Profile
             </Link>
-          </Typography>
+          </Typography> */}
           {navList}
           <div className="flex items-center gap-x-1 pb-1">
             <Link to="/auth/sign-in" className="w-1/2">

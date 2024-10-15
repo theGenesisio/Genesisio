@@ -7,27 +7,26 @@ const AdminAuthProvider = ({ children }) => {
         JSON.parse(window.localStorage.getItem("genesisioStoredAdmin")) || null
       );
     } catch (error) {
-      console.error("Error reading local storage", error);
+      console.error("Error reading admin from local storage", error);
       return null;
     }
   });
-  ///
   useEffect(() => {
-    const isLocalStorageSupported = () => {
-      try {
-        const testKey = "__admintest__";
-        window.localStorage.setItem(testKey, testKey);
-        window.localStorage.removeItem(testKey);
-        return true;
-      } catch (error) {
-        return false;
-      }
-    };
+  //   const isLocalStorageSupported = () => {
+  //     try {
+  //       const adminTestKey = "__admintest__";
+  //       window.localStorage.setItem(adminTestKey, adminTestKey);
+  //       window.localStorage.removeItem(adminTestKey);
+  //       return true;
+  //     } catch (error) {
+  //       return false;
+  //     }
+  //   };
 
-    if (!isLocalStorageSupported()) {
-      console.error("Local storage is not supported");
-      return;
-    }
+  //   if (!isLocalStorageSupported()) {
+  //     console.error("Local storage is not supported");
+  //     return;
+  //   }
     const setNullAdmin = () => {
       setAdmin(null);
       window.localStorage.setItem("adminSession", JSON.stringify(false));

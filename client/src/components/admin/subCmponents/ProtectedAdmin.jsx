@@ -1,12 +1,16 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { AdminContext } from "./AdminContext";
 
 const ProtectedRoute = ({ children }) => {
+  const { admin } = useContext(AdminContext);
   const navigate = useNavigate();
-  const admin = () => {
+  const storedAdmin = () => {
     try {
       return (
-        JSON.parse(window.localStorage.getItem("genesisioStoredAdmin")) || null
+        admin ||
+        JSON.parse(window.localStorage.getItem("genesisioStoredAdmin")) ||
+        null
       );
     } catch (error) {
       console.error("Error reading local storage", error);
@@ -23,10 +27,10 @@ const ProtectedRoute = ({ children }) => {
   };
 
   useEffect(() => {
-    if (!admin() || !storedSessionValid()) {
+    if (!storedAdmin() || !storedSessionValid()) {
       navigate("/admin/auth/sign-in");
     }
-  }, [storedSessionValid, admin]);
+  }, [admin, storedSessionValid, storedAdmin]);
   return children;
 };
 export default ProtectedRoute;

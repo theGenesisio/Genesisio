@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   gsapAnimationBase,
   isValidPassword,
@@ -10,8 +10,26 @@ import { useForm } from "react-hook-form";
 import FormError from "../subcomponents/FormError";
 import { AuthContext } from "../../AuthProvider";
 const Signin = () => {
-  const { setUser } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
+  const storedUser = () => {
+    try {
+      return (
+        JSON.parse(window.localStorage.getItem("genesisio_user")) ||
+        user ||
+        null
+      );
+    } catch (error) {
+      console.error("Error reading user from local storage", error);
+      return null;
+    }
+  };
+  useEffect(() => {
+    if (storedUser()) {
+      navigate("/genesisio/dashboard");
+    }
+  }, [storedUser,user]);
+
   gsapAnimationBase(".auth");
   const {
     register,
