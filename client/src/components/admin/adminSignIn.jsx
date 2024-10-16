@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import {
   gsapAnimationBase,
   isValidPassword,
@@ -10,25 +10,8 @@ import { useForm } from "react-hook-form";
 import FormError from "../subcomponents/FormError";
 import { AdminContext } from "./subCmponents/AdminContext";
 const Signin = () => {
-  const { admin, setAdmin } = useContext(AdminContext);
+  const { setAdmin } = useContext(AdminContext);
   const navigate = useNavigate();
-  const storedAdmin = () => {
-    try {
-      return (
-        JSON.parse(window.localStorage.getItem("genesisioStoredAdmin")) ||
-        admin ||
-        null
-      );
-    } catch (error) {
-      console.error("Error reading admin from local storage", error);
-      return null;
-    }
-  };
-  useEffect(() => {
-    if (storedAdmin()) {
-      navigate("/admin/dashboard");
-    }
-  }, [storedAdmin,admin]);
   gsapAnimationBase(".auth");
   const {
     register,
@@ -85,7 +68,7 @@ const Signin = () => {
       console.error("Error during login:", error);
       setserverResponse((prev) => ({
         ...prev,
-        message: error.message || "An error occurred. Please try again later.",
+        message: "An error occurred. Please try again later." || error.message,
       }));
       setNullAdmin();
     }

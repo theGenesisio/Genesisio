@@ -13,21 +13,6 @@ const AuthProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    const isLocalStorageSupported = () => {
-      try {
-        const testKey = "__test__";
-        window.localStorage.setItem(testKey, testKey);
-        window.localStorage.removeItem(testKey);
-        return true;
-      } catch (error) {
-        return false;
-      }
-    };
-
-    if (!isLocalStorageSupported()) {
-      console.error("Local storage is not supported");
-      return;
-    }
     const setNullUser = () => {
       setUser(null);
       window.localStorage.setItem("IsSessionValid", JSON.stringify(false));

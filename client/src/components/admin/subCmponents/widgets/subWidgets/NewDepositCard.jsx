@@ -48,7 +48,7 @@ const NewDepositCard = (props) => {
             : "bg-accent-red scale-50"
       }
     >
-      <Card className="w-full flex-row mb-4 bg-inherit ">
+      <Card className="w-full flex-row mb-4 bg-inherit sm:px-1">
         <CardHeader
           shadow={false}
           floated={false}
@@ -76,7 +76,7 @@ const NewDepositCard = (props) => {
           >
             {status}
           </Typography>
-          <Typography variant="h1" className="m-1">
+          <Typography variant="h2" className="m-1">
             {amount?.toFixed(5)}
           </Typography>
           <Typography className="font-normal">{id}</Typography>

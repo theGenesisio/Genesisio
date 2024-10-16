@@ -45,12 +45,12 @@ const MyAssets = (props) => {
     >
       <h1 className="text-accent-green text-start text-demiTopic font-semibold">
         <Badge
-          content={user.tier}
+          content={user?.tier}
           placement="top-end"
           className={
-            user.tier === 3
+            user?.tier === 3
               ? "bg-purple-400 text-white"
-              : user.tier === 2
+              : user?.tier === 2
                 ? "bg-teal-500 text-white"
                 : "bg-blue-700 text-white"
           }

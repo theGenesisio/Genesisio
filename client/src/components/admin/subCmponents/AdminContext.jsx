@@ -12,21 +12,6 @@ const AdminAuthProvider = ({ children }) => {
     }
   });
   useEffect(() => {
-  //   const isLocalStorageSupported = () => {
-  //     try {
-  //       const adminTestKey = "__admintest__";
-  //       window.localStorage.setItem(adminTestKey, adminTestKey);
-  //       window.localStorage.removeItem(adminTestKey);
-  //       return true;
-  //     } catch (error) {
-  //       return false;
-  //     }
-  //   };
-
-  //   if (!isLocalStorageSupported()) {
-  //     console.error("Local storage is not supported");
-  //     return;
-  //   }
     const setNullAdmin = () => {
       setAdmin(null);
       window.localStorage.setItem("adminSession", JSON.stringify(false));

@@ -43,31 +43,60 @@ app.use(cors(corsOptions));
 app.use(handlePreflight);
 
 const store = new MongoDBStore(session);
-var sessionStorage = new store({
+const userSessionStore = new store({
     uri: process.env.MONGO_URI,
-    collection: "mySessions",
+    collection: "userSessions",
     connectionOptions: {
         serverSelectionTimeoutMS: 90000
     },
     optionsSuccessStatus: 200
 });
 
-sessionStorage.on('error', function (err) {
-    console.log(err);
+const adminSessionStore = new store({
+    uri: process.env.MONGO_URI,
+    collection: "adminSessions",
+    connectionOptions: {
+        serverSelectionTimeoutMS: 90000
+    },
+    optionsSuccessStatus: 200
+});
+
+userSessionStore.on('error', function (err) {
+    console.log("User session store error:", err);
+});
+
+adminSessionStore.on('error', function (err) {
+    console.log("Admin session store error:", err);
 });
 const isProduction = process.env.NODE_ENV === 'production';
-app.use(session({
-    store: sessionStorage,
+// User session middleware for /api routes
+app.use('/api', session({
+    store: userSessionStore,
     secret: process.env.SECRET_KEY,
     resave: false,
     saveUninitialized: false,
     cookie: {
-        maxAge: 12 * 60 * 60 * 1000,
+        name: 'user_sid',  // Distinct cookie for users
+        maxAge: 12 * 60 * 60 * 1000,  // 12 hours
         secure: isProduction,
-        httpOnly: !isProduction,
+        httpOnly: true,
         sameSite: isProduction ? 'None' : 'lax'
-    },
-    logErrors: true
+    }
+}));
+
+// Admin session middleware for /admin routes
+app.use('/admin', session({
+    store: adminSessionStore,
+    secret: process.env.SECRET_KEY,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        name: 'admin_sid',  // Distinct cookie for admins
+        maxAge: 12 * 60 * 60 * 1000,  // 12 hours
+        secure: isProduction,
+        httpOnly: true,
+        sameSite: isProduction ? 'None' : 'lax'
+    }
 }));
 
 app.use(passport.initialize());
@@ -80,8 +109,8 @@ import { Router } from "./src/routes/admin/adminRouter.js";
 
 app.use("/api/auth", authRouter);
 app.use("/api", router);
-app.use("/api/admin/auth", adminAuthRouter);
-app.use("/api/admin", Router);
+app.use("/admin/auth", adminAuthRouter);
+app.use("/admin", Router);
 
 app.get("/", (req, res) => {
     res.json([
