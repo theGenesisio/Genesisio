@@ -77,6 +77,7 @@ app.use('/api', session({
     saveUninitialized: false,
     cookie: {
         name: 'user_sid',  // Distinct cookie for users
+        path: '/api',      // Cookie scoped to /api routes
         maxAge: 12 * 60 * 60 * 1000,  // 12 hours
         secure: isProduction,
         httpOnly: true,
@@ -92,6 +93,7 @@ app.use('/admin', session({
     saveUninitialized: false,
     cookie: {
         name: 'admin_sid',  // Distinct cookie for admins
+        path: '/admin',     // Cookie scoped to /admin routes
         maxAge: 12 * 60 * 60 * 1000,  // 12 hours
         secure: isProduction,
         httpOnly: true,
