@@ -67,7 +67,7 @@ const DepositBNB = (props) => {
     formData.append("file", file);
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_APP_API}/deposit/upload/${user._id}-${user.wallet._id}-BNB-${user.email}-${Date.now()}`,
+        `${import.meta.env.VITE_APP_API}/deposit/upload/${user?._id}-${user?.wallet._id}-BNB-${user?.email}-${Date.now()}`,
         {
           method: "POST",
           credentials: "include",
