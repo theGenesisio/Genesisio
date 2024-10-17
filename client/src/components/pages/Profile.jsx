@@ -46,7 +46,7 @@ const Profile = () => {
     formData.append("_id", user?._id);
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_APP_API}/profiles/img/${user.email}`,
+        `${import.meta.env.VITE_APP_API}/profiles/img/${user?.email}`,
         {
           method: "POST",
           credentials: "include",
@@ -97,7 +97,7 @@ const Profile = () => {
   } = useForm({
     defaultValues: {
       fullname: user?.fullname,
-      phoneNumber: user?.phone && String(user.phone),
+      phoneNumber: user?.phone && String(user?.phone),
       occupation: user?.occupation,
       gender: user?.gender,
       dob: convertISOToDate(user?.dob),
@@ -147,12 +147,12 @@ const Profile = () => {
                 alt="Profile photo"
               />
             )} */}
-            {user.gender === "female" ? femaleAvatar : maleAvataar}
+            {user?.gender === "female" ? femaleAvatar : maleAvataar}
             <div className="flex flex-col gap-5">
               <h1 className="font-bold text-topic text-white">
-                {user.fullname}
+                {user?.fullname}
               </h1>
-              <p className="text-white font-normal">{user.email}</p>
+              <p className="text-white font-normal">{user?.email}</p>
               {/* <div className="flex flex-row justify-between p-3 bg-inherit border border-secondary-blue rounded-lg text-white">
                 {dropfileIcon}
                 <input

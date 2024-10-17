@@ -20,7 +20,7 @@ export default function DepositTable() {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_APP_API}/deposits/${user._id}`,
+        `${import.meta.env.VITE_APP_API}/deposits/${user?._id}`,
         {
           method: "GET",
           credentials: "include",

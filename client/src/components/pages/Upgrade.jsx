@@ -19,7 +19,7 @@ const Upgrade = () => {
           setRetry((prevRetry) => prevRetry + 1);
         }
         const result = await response.json();
-        setTiers(result.data.tiers);
+        setTiers(result?.data?.tiers);
         setError(null);
       } catch (error) {
         setError({ message: "An error occurred", statusCode: 400 });

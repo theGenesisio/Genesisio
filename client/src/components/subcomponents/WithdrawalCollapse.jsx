@@ -40,7 +40,7 @@ const WithdrawalCollapse = (props) => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_APP_API}/withdrawals/${user._id}`,
+        `${import.meta.env.VITE_APP_API}/withdrawals/${user?._id}`,
         {
           method: "POST",
           credentials: "include",
@@ -51,7 +51,7 @@ const WithdrawalCollapse = (props) => {
             address,
             convert,
             network,
-            walletId: user.wallet._id,
+            walletId: user?.wallet._id,
           }),
         }
       );

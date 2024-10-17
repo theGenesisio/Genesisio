@@ -18,7 +18,7 @@ export default function InvestmentTable() {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_APP_API}/packages/${user._id}`,
+        `${import.meta.env.VITE_APP_API}/packages/${user?._id}`,
         {
           method: "GET",
           credentials: "include",

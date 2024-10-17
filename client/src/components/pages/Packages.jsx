@@ -241,7 +241,7 @@ const Packages = () => {
               {truthy(amount === "") && (
                 <p className="text-accent-red">Amount cannot be empty</p>
               )}
-              {truthy(amount > user.wallet.cryptoBalances[wallet]?.holding) && (
+              {truthy(amount > user?.wallet.cryptoBalances[wallet]?.holding) && (
                 <p className="text-accent-red">{`Can not exceed maximum ${wallet} balance`}</p>
               )}
               {coinToUSD(prices[wallet]?.price, amount) < 1000 && (
@@ -339,7 +339,7 @@ const Packages = () => {
               fullWidth
               disabled={duration === null}
               onClick={handlePurchase}
-              className={`w-full px-6 py-3 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform bg-accent-green rounded-lg hover:shadow-sm hover:shadow-accent-green focus:outline-none focus:ring focus:ring-accent-green focus:ring-opacity-50 uppercase mt-6 disabled:hidden ${amount > user.wallet.cryptoBalances[wallet]?.holding ? `hidden` : coinToUSD(prices[wallet]?.price, amount) < 1000 ? `hidden` : truthy(amount === "") ? `hidden` : `block`}`}
+              className={`w-full px-6 py-3 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform bg-accent-green rounded-lg hover:shadow-sm hover:shadow-accent-green focus:outline-none focus:ring focus:ring-accent-green focus:ring-opacity-50 uppercase mt-6 disabled:hidden ${amount > user?.wallet.cryptoBalances[wallet]?.holding ? `hidden` : coinToUSD(prices[wallet]?.price, amount) < 1000 ? `hidden` : truthy(amount === "") ? `hidden` : `block`}`}
             >
               {`Subscribe to ${product} package`}
             </button>
