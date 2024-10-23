@@ -72,11 +72,12 @@ const isProduction = process.env.NODE_ENV === 'production';
 // User session middleware for /api routes
 app.use('/api', session({
     store: userSessionStore,
+    name: 'user_sid',  // Distinct session for users
     secret: process.env.SECRET_KEY,
     resave: false,
     saveUninitialized: false,
     cookie: {
-        name: 'user_sid',  // Distinct cookie for users
+        // name: 'user_sid',  // Distinct cookie for users
         path: '/api',      // Cookie scoped to /api routes
         maxAge: 12 * 60 * 60 * 1000,  // 12 hours
         secure: isProduction,
@@ -88,11 +89,12 @@ app.use('/api', session({
 // Admin session middleware for /admin routes
 app.use('/admin', session({
     store: adminSessionStore,
+    name: 'admin_sid',  // Distinct session for admins
     secret: process.env.SECRET_KEY,
     resave: false,
     saveUninitialized: false,
     cookie: {
-        name: 'admin_sid',  // Distinct cookie for admins
+        // name: 'admin_sid',  // Distinct cookie for admins
         path: '/admin',     // Cookie scoped to /admin routes
         maxAge: 12 * 60 * 60 * 1000,  // 12 hours
         secure: isProduction,

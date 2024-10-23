@@ -44,7 +44,7 @@ const adminDashboard = () => {
       className="flex flex-col min-h-screen py-8
      mx-auto"
     >
-      <p className="font-normal text-white text-demiTopic">Welcome,</p>
+      <p className="font-normal text-white text-demiTopic">Welcome</p>
       <h1 className="text-white text-start text-topic font-semibold mb-5 dash">
         {admin?.username ? ` ${admin?.username}` : `Marseille`}
       </h1>

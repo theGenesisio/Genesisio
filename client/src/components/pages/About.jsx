@@ -17,8 +17,7 @@ const About = () => {
         potential of digital assets, particularly Bitcoin and other major
         cryptocurrencies along side exploring the stocks market,focus committed
         to making the world of crypto accessible to everyone.
-      </Typography>
-      <Typography variant="paragraph" className="text-white about">
+        <br />
         We prioritize the privacy and security of our users, we do not require
         unnecessary personal information, providing you with the freedom and
         peace of mind to transact securely without sacrificing your privacy.
