@@ -70,6 +70,29 @@ adminSessionStore.on('error', function (err) {
 });
 const isProduction = process.env.NODE_ENV === 'production';
 // User session middleware for /api routes
+app.use((req, res, next) => {
+    const cookies = req.headers.cookie;
+    console.log("All Cookies:", cookies);
+
+    // Extract the user_sid and admin_sid cookies if they exist
+    const userCookie = cookies && cookies.split('; ').find(cookie => cookie.startsWith('user_sid='));
+    const adminCookie = cookies && cookies.split('; ').find(cookie => cookie.startsWith('admin_sid='));
+
+    if (userCookie) {
+        console.log("User Session Cookie Found:", userCookie);
+    } else {
+        console.log("No User Session Cookie Sent");
+    }
+
+    if (adminCookie) {
+        console.log("Admin Session Cookie Found:", adminCookie);
+    } else {
+        console.log("No Admin Session Cookie Sent");
+    }
+
+    next();
+});
+
 app.use('/api', session({
     store: userSessionStore,
     name: 'user_sid',  // Distinct session for users
@@ -77,7 +100,6 @@ app.use('/api', session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        // name: 'user_sid',  // Distinct cookie for users
         path: '/api',      // Cookie scoped to /api routes
         maxAge: 12 * 60 * 60 * 1000,  // 12 hours
         secure: isProduction,
@@ -94,7 +116,6 @@ app.use('/admin', session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        // name: 'admin_sid',  // Distinct cookie for admins
         path: '/admin',     // Cookie scoped to /admin routes
         maxAge: 12 * 60 * 60 * 1000,  // 12 hours
         secure: isProduction,
