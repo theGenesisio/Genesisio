@@ -1,17 +1,11 @@
-import React, { useContext, useEffect } from "react";
-import { AuthContext } from "./AuthProvider";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const checkAuth = ({ children }) => {
-  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const storedUser = () => {
     try {
-      return (
-        JSON.parse(window.localStorage.getItem("genesisio_user")) ||
-        user ||
-        null
-      );
+      return JSON.parse(window.localStorage.getItem("genesisio_user"));
     } catch (error) {
       console.error("Error reading user from local storage", error);
       return null;
@@ -21,7 +15,7 @@ const checkAuth = ({ children }) => {
     if (storedUser()) {
       navigate("/genesisio/dashboard");
     }
-  }, [storedUser, user]);
+  }, [storedUser]);
 
   return children;
 };

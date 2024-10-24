@@ -9,7 +9,7 @@ import {
   IconButton,
   Collapse,
 } from "@material-tailwind/react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 export default function NavbarMain() {
   const [openNav, setOpenNav] = useState(false);
   const [serverResponse, setserverResponse] = useState({
@@ -48,6 +48,7 @@ export default function NavbarMain() {
     window.localStorage.setItem("adminSession", JSON.stringify(false));
     window.localStorage.removeItem("genesisioStoredAdmin");
   };
+  const navigate = useNavigate();
   const handleLogout = async () => {
     try {
       const response = await fetch(
@@ -57,24 +58,17 @@ export default function NavbarMain() {
           credentials: "include",
         }
       );
-      if (response) {
-        const data = await response.json();
-        setserverResponse(data);
-        setNullAdmin();
-      } else if (!response) {
+      if (!response.ok) {
         setserverResponse({
           message: "No response from server, please try again later",
         });
-        setNullAdmin();
-      } else {
-        setserverResponse({
-          message: "Unexpected occurence during logout, please try again later",
-        });
-        setNullAdmin();
       }
-    } catch (err) {
+      const data = await response.json();
+      setserverResponse(data.message);
       setNullAdmin();
-      console.error("Error during logout:", error);
+      navigate("/admin/auth/sign-in");
+    } catch (err) {
+      console.error("Error during logout:", err);
       setserverResponse({
         message: "An error occurred. Please try again later.",
       });

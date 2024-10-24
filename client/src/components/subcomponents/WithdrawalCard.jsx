@@ -22,10 +22,10 @@ const WithdrawalCard = (props) => {
         </div>
         <div className="flex flex-col text-end text-white">
           <Typography className="font-bold text-demiTopic">
-            {parseFloat(bal.holding).toFixed(7)}
+            {parseFloat(bal?.holding).toFixed(7)}
           </Typography>
           {prices !== null && (
-            <Typography className="font-normal text-xs text-accent-green">{`${coinToUSD(prices[symbol]?.price, bal.holding)} USD`}</Typography>
+            <Typography className="font-normal text-xs text-accent-green">{`${coinToUSD(prices[symbol]?.price, bal?.holding)} USD`}</Typography>
           )}
           {prices === null && (
             <Typography className="font-normal text-sm text-accent-green">Converting...</Typography>

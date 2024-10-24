@@ -69,26 +69,44 @@ adminSessionStore.on('error', function (err) {
     console.log("Admin session store error:", err);
 });
 const isProduction = process.env.NODE_ENV === 'production';
-// User session middleware for /api routes
-app.use((req, res, next) => {
+// Middleware for /api routes
+app.use('/api', (req, res, next) => {
     const cookies = req.headers.cookie;
-    console.log("All Cookies:", cookies);
+    console.log("All Cookies on /api:", cookies);
 
-    // Extract the user_sid and admin_sid cookies if they exist
+    // Extract the user_sid cookie
     const userCookie = cookies && cookies.split('; ').find(cookie => cookie.startsWith('user_sid='));
-    const adminCookie = cookies && cookies.split('; ').find(cookie => cookie.startsWith('admin_sid='));
 
     if (userCookie) {
         console.log("User Session Cookie Found:", userCookie);
     } else {
-        console.log("No User Session Cookie Sent");
+        console.log("No User Session Cookie Sent on /api");
     }
+
+    // Set no-cache headers for /api
+    res.setHeader('Cache-Control', 'no-store');
+    res.setHeader('Pragma', 'no-cache');
+
+    next();
+});
+
+// Middleware for /admin routes
+app.use('/admin', (req, res, next) => {
+    const cookies = req.headers.cookie;
+    console.log("All Cookies on /admin:", cookies);
+
+    // Extract the admin_sid cookie
+    const adminCookie = cookies && cookies.split('; ').find(cookie => cookie.startsWith('admin_sid='));
 
     if (adminCookie) {
         console.log("Admin Session Cookie Found:", adminCookie);
     } else {
-        console.log("No Admin Session Cookie Sent");
+        console.log("No Admin Session Cookie Sent on /admin");
     }
+
+    // Set no-cache headers for /admin
+    res.setHeader('Cache-Control', 'no-store');
+    res.setHeader('Pragma', 'no-cache');
 
     next();
 });
@@ -102,7 +120,7 @@ app.use('/api', session({
     cookie: {
         path: '/api',      // Cookie scoped to /api routes
         maxAge: 12 * 60 * 60 * 1000,  // 12 hours
-        secure: isProduction,
+        secure: isProduction ? true : false,
         httpOnly: true,
         sameSite: isProduction ? 'None' : 'lax'
     }
@@ -118,7 +136,7 @@ app.use('/admin', session({
     cookie: {
         path: '/admin',     // Cookie scoped to /admin routes
         maxAge: 12 * 60 * 60 * 1000,  // 12 hours
-        secure: isProduction,
+        secure: isProduction ? true : false,
         httpOnly: true,
         sameSite: isProduction ? 'None' : 'lax'
     }

@@ -52,7 +52,7 @@ const Withdrawal = () => {
             <Card
               name={coin.name}
               symbol={coin.symbol}
-              bal={user?.wallet.cryptoBalances[coin.symbol]}
+              bal={user?.wallet?.cryptoBalances[coin.symbol]}
               prices={prices}
               key={coin.name}
             />

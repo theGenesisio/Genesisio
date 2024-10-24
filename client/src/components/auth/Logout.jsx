@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { logoSVG } from "../../assets/utils";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import FormError from "../subcomponents/FormError";
 import { useForm } from "react-hook-form";
 const Logout = () => {
@@ -12,10 +12,11 @@ const Logout = () => {
     handleSubmit,
     formState: { isSubmitting },
   } = useForm();
-   const setNullUser = () => {
-     window.localStorage.setItem("IsSessionValid", JSON.stringify(false));
-     window.localStorage.removeItem("genesisio_user");
-   };
+  const setNullUser = () => {
+    window.localStorage.setItem("IsSessionValid", JSON.stringify(false));
+    window.localStorage.removeItem("genesisio_user");
+  };
+  const navigate = useNavigate();
   async function handleLogout() {
     try {
       const response = await fetch(
@@ -25,23 +26,16 @@ const Logout = () => {
           credentials: "include",
         }
       );
-      if (response) {
-        const data = await response.json();
-        setserverResponse(data);
-        setNullUser()
-      } else if (!response) {
+      if (!response.ok) {
         setserverResponse({
           message: "No response from server, please try again later",
         });
-        setNullUser();
-      } else {
-        setserverResponse({
-          message: "Unexpected occurence during logout, please try again later",
-        });
-        setNullUser();
       }
-    } catch (error) {
+      const data = await response.json();
+      setserverResponse(data.message);
       setNullUser();
+      navigate("/auth/sign-in");
+    } catch (error) {
       console.error("Error during logout:", error);
       setserverResponse({
         message: "An error occurred. Please try again later.",
@@ -92,9 +86,7 @@ const Logout = () => {
             code={serverResponse.statusCode}
           />
         )}
-        {serverResponse.statusCode === 200 && (
-          <Navigate to="/"/>
-        )}
+        {serverResponse.statusCode === 200 && <Navigate to="/" />}
       </div>
     </section>
   );

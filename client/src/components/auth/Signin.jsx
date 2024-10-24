@@ -57,11 +57,9 @@ const Signin = () => {
           JSON.stringify(data?.user)
         );
         data?.statusCode === 200 && navigate("/genesisio/dashboard");
-      } else {
-        setNullUser();
       }
     } catch (error) {
-      console.error("Error during login:", error);
+      console.error("Error during user login:", error);
       setserverResponse((prev) => ({
         ...prev,
         message: "An error occurred. Please try again later." || error.message,

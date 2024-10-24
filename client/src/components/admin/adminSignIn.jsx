@@ -61,9 +61,7 @@ const Signin = () => {
           JSON.stringify(data?.admin)
         );
         data?.statusCode === 200 && navigate("/admin/dashboard");
-      } else {
-        setNullAdmin();
-      }
+      } 
     } catch (error) {
       console.error("Error during login:", error);
       setserverResponse((prev) => ({
