@@ -61,7 +61,7 @@ const uploadQR = multer({
 });
 // ** Admin Routes
 Router.route("/dashboard")
-    .get(isAuthenticated, async (req, res) => {
+    .get(async (req, res) => {
         try {
             const [latestProfiles, activeUsers, newDeposits, latestWithdrawalRequests] = await Promise.all([
                 findNewestEntries(0, 5),
@@ -84,17 +84,17 @@ Router.route("/dashboard")
         }
     });
 Router.route("/profiles")
-    .get(isAuthenticated, async (req, res) => {
+    .get(async (req, res) => {
         let profiles = await findAny()
         res.status(200).send({ message: 'Here are the profiles!', statusCode: 200, data: { profiles: profiles } });
     })
 Router.route("/profiles/:profileID")
-    .get(isAuthenticated, async (req, res) => {
+    .get(async (req, res) => {
         const { profileID } = req.params
         let profile = await findAnyByID(profileID)
         res.status(200).send({ message: "Here's the  profile!", statusCode: 200, data: { profile: profile } });
     })
-    .patch(isAuthenticated, async (req, res) => {
+    .patch(async (req, res) => {
         const { profileID } = req.params
         let update = await updateProfile(profileID, { tier: req.body.newTier })
         let message = !update ? `Tier change failed` : `Succesfully updated`;
@@ -104,7 +104,7 @@ Router.route("/profiles/:profileID")
         res.status(200).send({ message: message, statusCode: 200, data: { update: update } });
     })
 Router.route("/profiles/img/:email")
-    .get(isAuthenticated, async (req, res) => {
+    .get(async (req, res) => {
         const filename = `${req.params.email}.png`;
         const options = {
             root: path.join(baseDir, 'public', 'uploads', 'profileImages')
@@ -118,11 +118,11 @@ Router.route("/profiles/img/:email")
     })
 /// ** SUPPLIES DEPOSIT TABLE
 Router.route("/deposits")
-    .get(isAuthenticated, async (req, res) => {
+    .get(async (req, res) => {
         let deposits = await findAny(2)
         res.status(200).send({ message: 'Here are the deposits!', statusCode: 200, data: { deposits: deposits } });
     })
-    .post(isAuthenticated, async (req, res) => {
+    .post(async (req, res) => {
         const { email, convert, currency } = req.body;
         let userArray = [];
         userArray = await findAnyByUser({ email: email });
@@ -147,12 +147,12 @@ Router.route("/deposits")
         }
     });
 Router.route("/deposits/:depositID")
-    .get(isAuthenticated, async (req, res) => {
+    .get(async (req, res) => {
         const { depositID } = req.params
         let deposit = await findAnyByID(depositID, 2)
         res.status(200).send({ message: "Here's the  deposit!", statusCode: 200, data: { deposit: deposit } });
     })
-    .patch(isAuthenticated, async (req, res) => {
+    .patch(async (req, res) => {
         const { depositID } = req.params
         const { newStatus } = req.body
         const update = await adminUpdateRecords(depositID, { status: newStatus }, 2)
@@ -175,18 +175,18 @@ Router.route("/deposits/:depositID")
 
 
 Router.route("/withdrawals")
-    .get(isAuthenticated, async (req, res) => {
+    .get(async (req, res) => {
         let withdrawals = await findAny(3)
         res.status(200).send({ message: 'Here are the withdrawals!', statusCode: 200, data: { withdrawals: withdrawals } });
     })
 Router.route("/withdrawals/:withdrawalID")
-    .get(isAuthenticated, async (req, res) => {
+    .get(async (req, res) => {
         // todo get specific deposit data and send
         const { withdrawalID } = req.params
         let withdrawal = await findAnyByID(withdrawalID, 3)
         res.status(200).send({ message: "Here's the  withdrawal!", statusCode: 200, data: { withdrawal: withdrawal } });
     })
-    .patch(isAuthenticated, async (req, res) => {
+    .patch(async (req, res) => {
         const { withdrawalID } = req.params
         const { newStatus } = req.body
         let update = await adminUpdateRecords(withdrawalID, { status: newStatus }, 3)
@@ -205,14 +205,14 @@ Router.route("/withdrawals/:withdrawalID")
         res.status(200).send({ message: message, statusCode: 200, data: { update: update } });
     })
 Router.route("/networks")
-    .get(isAuthenticated, async (req, res) => {
+    .get(async (req, res) => {
         // todo get all network data and send
         let networks = await findAny(5);
         res.status(200).send({ message: 'Here are the networks!', statusCode: 200, data: { networks: networks } });
     })
 /// ** WALLET QRCODE IMAGE UPload
 Router.route("/networks/:network")
-    .patch(isAuthenticated, setRoutePath(), uploadQR.single("file"), async (req, res) => {
+    .patch(setRoutePath(), uploadQR.single("file"), async (req, res) => {
         const { network } = req.params
         const { address } = req.body
         let update = await adminUpdateNetwork(network, address);
@@ -223,7 +223,7 @@ Router.route("/networks/:network")
     });
 /// ** DEPOSIT IMAGE Parsing
 Router.route("/deposits/img/:imageFileName")
-    .get(isAuthenticated, async (req, res) => {
+    .get(async (req, res) => {
         const filename = req.params.imageFileName;
         const options = {
             root: path.join(baseDir, 'public', 'uploads', 'depositImages')
@@ -237,12 +237,12 @@ Router.route("/deposits/img/:imageFileName")
     });
 ///** TIERING
 Router.route("/tiers")
-    .get(isAuthenticated, async (req, res) => {
+    .get(async (req, res) => {
         await adminDefaultTiers()
         let tiers = await findAny(7)
         res.status(200).send({ message: 'Here are the tiers!', statusCode: 200, data: { tiers: tiers } });
     })
-    .patch(isAuthenticated, async (req, res) => {
+    .patch(async (req, res) => {
         const { newTier, details, instruction } = req.body
         let updates = {
             details: details,
@@ -255,11 +255,11 @@ Router.route("/tiers")
         res.status(200).send({ message: 'Update complete', statusCode: 200, data: { update: update } });
     })
 Router.route("/tiers/requests")
-    .get(isAuthenticated, async (req, res) => {
+    .get(async (req, res) => {
         let requests = await findAny(8)
         res.status(200).send({ message: 'Here are the upgrade requests!', statusCode: 200, data: { requests: requests } });
     })
-    .patch(isAuthenticated, async (req, res) => {
+    .patch(async (req, res) => {
         const { _id, newStatus } = req.body
         const update = await adminUpdateRecords(_id, { status: newStatus }, 8)
         let message = !update ? `Status change failed` : `Succesfully updated`;
@@ -269,7 +269,7 @@ Router.route("/tiers/requests")
         res.status(200).send({ message: message, statusCode: 200, data: { update: update } });
     })
 Router.route("/tiers/requests/mail/:email")
-    .post(isAuthenticated, async (req, res) => {
+    .post(async (req, res) => {
         const { email } = req.params
         const { number, _id } = req.body
         const [requestedTierArray, profile] = await Promise.all([findAnyByUser({ number: number }, 7), findAnyByUser({ email: email }, 0)])
@@ -282,12 +282,12 @@ Router.route("/tiers/requests/mail/:email")
         res.status(200).send({ message: "Mail sent", statusCode: 200, data: { mail: mail } });
     })
 Router.route("/packages")
-    .get(isAuthenticated, async (req, res) => {
+    .get(async (req, res) => {
         let packages = await findAny(4)
         res.status(200).send({ message: 'Here are the upgrade requests!', statusCode: 200, data: { packages: packages } });
     })
 Router.route("/price")
-    .get(isAuthenticated, async (req, res) => {
+    .get(async (req, res) => {
         let prices = await findAny(6)
         if (prices.length < 1) {
             res.status(500).send({ message: 'Internal server error', statusCode: 500, data: { prices: prices } });

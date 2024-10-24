@@ -16,9 +16,8 @@ Router.route("/")
     .get((req, res) => {
         res.status(403).send({ message: 'API working like a charm', statusCode: 403 });
     })
-    .post(isAuthenticated, (req, res, next) => {
+    .post(isAuthenticated, (req, res) => {
         res.status(403).send({ message: 'You have accessed a protected route!', statusCode: 403 });
-
     })
 /// ** DEPOSIT CREATION
 Router.route("/deposit/upload/:userId-:walletId-:currency-:email-:timeStamp")
@@ -47,14 +46,13 @@ Router.route("/deposits/:userId")
     })
 /// ** GET SPECIFIC NETWORK DETAILS
 Router.route("/deposit/load/:network")
-    .get(isAuthenticated, async (req, res) => {
+    .get(async (req, res) => {
         let networks = await findAnyByUser({ networkName: req.params.network }, 5)
         let network = networks[0]
-        // get image details
         res.status(200).send({ message: 'Here are the network details!', statusCode: 200, data: { network: network } });
     })
 Router.route("/deposits/load-img/:network")
-    .get(isAuthenticated, async (req, res) => {
+    .get(async (req, res) => {
         const filename = `${req.params.network}.png`;
         const options = {
             root: path.join(baseDir, 'server', 'public', 'uploads', 'qrCodes')
@@ -88,7 +86,7 @@ Router.route("/withdrawals/:userId")
         res.status(201).send({ message: 'Withdrawal request made, awaiting validation', statusCode: 201, data: { result: result } });
     })
 Router.route("/tiers")
-    .get(isAuthenticated, async (req, res) => {
+    .get(async (req, res) => {
         let tiers = await findAny(7)
         res.status(200).send({ message: 'Here are the options for upgrade!', statusCode: 200, data: { tiers: tiers } });
     })
@@ -167,7 +165,7 @@ Router.route("/profile/update/:_id")
         res.status(200).send({ message: 'Update successfull!', statusCode: 200 });
     })
 Router.route("/price")
-    .get(isAuthenticated, async (req, res) => {
+    .get(async (req, res) => {
         let prices = await findAny(6)
         if (prices.length < 1) {
             res.status(500).send({ message: 'Internal server error', statusCode: 500, data: { prices: prices } });
